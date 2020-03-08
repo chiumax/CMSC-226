@@ -1,0 +1,4 @@
+ISBN,Title,author,Publisher,Date added,Quantity-on-hand,Wholesale Cost,Retail price
+0374158460,Freedom,Jonathan Franzen,Farrar, Straus & Giroux,08/20/2013,40,12.50,30.4
+0404040404, Head First Design Patterns,Elisabeth Freeman
+2,Arduino Cookbook,2011,50,34.5,56.7
