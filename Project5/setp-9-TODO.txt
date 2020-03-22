@@ -1,0 +1,105 @@
+TODO - ✖✔
+
+✖ - use pointers for 
+
+  ✖ repQty
+  ✖ repCost
+  ✖ repAge
+  
+  - ex: int* idPtr[SIZE] // pointers to tracking array,
+        int* qtyPtr[SIZE] // array of pointers to qtyOnHand array, and also for selection sort
+
+✖ - ask if more books to buy else calculate (cashier)
+
+✖ - use isbn to identify books (isbn)
+  ✖ if wrong ask if ask again
+  
+✖ - qtyOnHand check if # of copy
+
+Reports menu
+
+✖ - repListing, print:
+  
+  ✖ title
+  ✖ ISBN number
+  ✖ author
+  ✖ publisher
+  ✖ dat added to inventory
+  ✖ qty on hand
+  ✖ wholesale cost
+  ✖ retail price
+  
+  - report should display
+  
+  ✖ appropriate title that includes the date
+  
+
+  
+
+✖ - repWholesale, print:
+
+  ✖ title
+  ✖ ISBN number
+  ✖ qty on hand
+  ✖ wholesale cost
+  
+  ✖ app. title & the date
+  
+  ✖ last line give the total wholesale value of inventory
+  
+
+✖ - repRetail, print:
+
+  ✖ title
+  ✖ ISBN number
+  ✖ qty on hand
+  ✖ retail price
+  
+  ✖ app. title & the date
+  
+  ✖ last line give the total retail of inventory
+  
+✖ - repQty, print:
+
+  ✖ title
+  ✖ ISBN number
+  ✖ qty on hand
+  
+  ✖ sort by qty in descending (large -> small)
+  
+  ✖ app. title & the date
+  
+✖ - repCost, print:
+
+  ✖ title
+  ✖ ISBN number
+  ✖ qty on hand
+  ✖ wholesale cost
+  
+  ✖ sort by wholesale cost in descenting order
+  
+  ✖ app. title & the date
+  
+✖ - repAge, print:
+
+  ✖ title
+  ✖ ISBN number
+  ✖ qty on hand
+  ✖ date added to inventory
+  
+  ✖ sort by date added in descending order (the books that have been in inventory longest will be listed first). 
+  
+  ✖ app. title & the date
+  
+  
+  
+  
+For all,   ✖ fill the sc with data and ask to press a key to cont. to next screen
+  
+  
+  
+  
+  
+  
+  
+  
