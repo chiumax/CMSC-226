@@ -1,7 +1,7 @@
 /*
 reports.cpp
 CMSC 226, CRN 35481, Dr. Kuijt
-Max C.
+maxElm C.
 
 Reports Module
 */
@@ -74,39 +74,90 @@ void repListing() {
   cout << "You selected Inventory Listing." << endl << endl;
 
   cout << setw(10) << " "
-       << "Entire Inventory" << setw(10) << " " << endl
+       << "Entire Inventory " << setw(10) << " " << endl
        << "Date: ";
   coutTime();
   cout << endl;
 
-  // TODO: Modify from 20 to a dynamic max limit
+  int count = 1;
+  for (int i = 0; i < maxElm; i++) {
+    if (isbn[i] != "\0" && isbn[i] != "") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << bookTitle[i] << endl
+           << "ISBN #: " << isbn[i] << endl
+           << "Author: " << author[i] << endl
+           << "Publisher: " << publisher[i] << endl
+           << "Date Added (MM-DD-YYYY): " << dateAdded[i] << endl
+           << "Quantity on Hand: " << qtyOnHand[i] << endl
+           << "Wholesale Cost: " << wholesale[i] << endl
+           << "Retail Price: " << retail[i] << endl
+           << "=====" << endl;
+      count++;
+    }
+  }
+  // TODO: Modify from 20 to a dynamic maxElm limit
 }
 
 void repWholesale() {
   cout << "You selected Inventory Wholesale Value." << endl << endl;
 
   cout << setw(10) << " "
-       << "Entire Inventory Wholesale Prices" << setw(10) << " " << endl
+       << "Entire Inventory Wholesale Prices " << setw(10) << " " << endl
        << "Date: ";
   coutTime();
   cout << endl;
+
+  int count = 1;
+  double total = 0;
+  for (int i = 0; i < maxElm; i++) {
+    if (isbn[i] != "\0" && isbn[i] != "") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << bookTitle[i] << endl
+           << "ISBN #: " << isbn[i] << endl
+           << "Quantity on Hand: " << qtyOnHand[i] << endl
+           << "Wholesale Cost: " << wholesale[i] << endl
+           << "=====" << endl;
+      count++;
+      total += wholesale[i] * qtyOnHand[i];
+    }
+  }
+  cout << "Total wholesale value of inventory: " << total << endl;
 }
 
 void repRetail() {
   cout << "You selected Inventory Retail Value." << endl << endl;
 
   cout << setw(10) << " "
-       << "Entire Inventory Retail Prices" << setw(10) << " " << endl
+       << "Entire Inventory Retail Prices " << setw(10) << " " << endl
        << "Date: ";
   coutTime();
   cout << endl;
+
+  int count = 1;
+  double total = 0;
+  for (int i = 0; i < maxElm; i++) {
+    if (isbn[i] != "\0" && isbn[i] != "") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << bookTitle[i] << endl
+           << "ISBN #: " << isbn[i] << endl
+           << "Quantity on Hand: " << qtyOnHand[i] << endl
+           << "Retail Price: " << retail[i] << endl
+           << "=====" << endl;
+      count++;
+      total += retail[i] * qtyOnHand[i];
+    }
+  }
+  cout << "Total retail value of inventory: " << total << endl;
 }
 
 void repQty() {
   cout << "You selected Listing By Quantity" << endl << endl;
 
   cout << setw(10) << " "
-       << "Entire Inventory Book Quantities" << setw(10) << " " << endl
+       << "Entire Inventory Book Quantities " << setw(10) << " " << endl
        << "Date: ";
   coutTime();
   cout << endl;
@@ -116,17 +167,37 @@ void repCost() {
   cout << "You selected Listing By Cost" << endl << endl;
 
   cout << setw(10) << " "
-       << "Entire Inventory Book Costs" << setw(10) << " " << endl
+       << "Entire Inventory Book Costs " << setw(10) << " " << endl
        << "Date: ";
   coutTime();
   cout << endl;
+  double *p[maxElm];
+  descendingSort(&wholesale[0], p);
+  // for(int i =0; i< maxElm; i++){
+  //   cout << p[i];
+  // }
+
+  int count = 1;
+  for (int i = 0; i < maxElm; i++) {
+    int ind = p[i] - &wholesale[0];
+    if (isbn[ind] != "\0" && isbn[ind] != "") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << bookTitle[ind] << endl
+           << "ISBN #: " << isbn[ind] << endl
+           << "Quantity on Hand: " << qtyOnHand[ind] << endl
+           << "Wholesale Price: " << wholesale[ind] << endl
+           << "=====" << endl;
+      count++;
+    }
+  }
 }
 
 void repAge() {
   cout << "You selected Listing By Age." << endl << endl;
 
   cout << setw(10) << " "
-       << "Entire Inventory Date Added" << setw(10) << " " << endl
+       << "Entire Inventory Date Added " << setw(10) << " " << endl
        << "Date: ";
   coutTime();
   cout << endl;
@@ -142,4 +213,46 @@ void coutTime() {
   char *dt = ctime(&now);
 
   cout << dt;
+}
+
+void descendingSort(double *pointer, double *p[]) {
+  // uses selection sort to sort items in descending order
+  // pointer is array of pointers to sort
+  // double *p[maxElm];
+  int max = 0;
+
+  // assign pointers to array
+  for (int i = 0; i < maxElm; i++) {
+    p[i] = pointer + i;
+  }
+
+  // using selection sort
+  for (int i = 0; i < maxElm; i++) {
+    max = i;
+    for (int j = i; j < maxElm; j++) {
+      if (*p[max] < *p[j]) {
+        max = j;
+      }
+    }
+    double *temp = p[max];
+    p[max] = p[i];
+    p[i] = temp;
+  }
+}
+
+void descendingSortDate(int *pointer[]) {
+  // calls descendingSort but does some data preprocessing
+
+  int val[maxElm];
+  int *p = val;
+
+  for (int i = 0; i < maxElm; i++) {
+    // basically converting years to days
+    // months to days
+    // adding it all together so it can be compared
+
+    // dates are MM-DD-YYYY for substring
+    string date = dateAdded[i];
+    val[i] = stoi(date.substr()) * +stoi(date.substr()) + stoi(date.substr());
+  }
 }

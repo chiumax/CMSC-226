@@ -67,6 +67,10 @@ void repAge();
 
 // prints current time
 void coutTime();
+
+// descending sort
+void descendingSort(double *pointer, double *p[]);
+// print
 // Global Variables
 // bookinfo.cpp
 /*
@@ -85,6 +89,8 @@ extern int qtyOnHand[20];
 
 extern double wholesale[20];
 extern double retail[20];
-//
+
+// number of elements
+extern int maxElm;
 
 #endif
