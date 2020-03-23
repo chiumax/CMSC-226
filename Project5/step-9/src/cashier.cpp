@@ -16,17 +16,17 @@ Ask for input and outputs a "receipt"
 using namespace std;
 
 void cashier() {
-  string date;
   int bookQuantity;
   string ISBN;
-  string bookTitle;
-  double price;
   string userInput;
 
+  int ind;
+  int shoppingCart[maxElm] = {0};
+
   const double TAX_RATE = 0.06;
-  double salesTax;
-  double subtotal;
-  double total;
+  double salesTax = 0;
+  double subtotal = 0;
+  double total = 0;
 
   bool exitRegister = false;
 
@@ -36,41 +36,77 @@ void cashier() {
          << "Cashier Module" << endl
          << endl;
 
-    cout << "Date: ";
-    cin >> date;
-    cin.ignore();
-
-    cout << "Quantity of Book: ";
-    cin >> bookQuantity;
-    cin.ignore();
-
     cout << "ISBN: ";
     cin >> ISBN;
     cin.ignore();
+    cout << endl;
 
-    cout << "Title: ";
-    getline(cin, bookTitle);
+    ind = findISBN(ISBN);
+    if (ind == -1) {
+      cout << "ISBN not found!" << endl
+           << "Would you like to try again? (y/N) ";
+      cin >> userInput;
+      cin.ignore();
 
-    cout << "Price: ";
-    cin >> price;
+      if (userInput != "y") {
+        return;
+      }
+      continue;
+    }
+
+    cout << "Book title: " << bookTitle[ind] << endl
+         << "Retail Price: " << retail[ind] << endl
+         << "Quantity: " << qtyOnHand[ind] << endl;
+
+    cout << "How many books would you like to purchase? : ";
+    cin >> bookQuantity;
     cin.ignore();
 
+    if (qtyOnHand[ind] - bookQuantity < 0) {
+      cout << "Not enough book in stock!" << endl
+           << "Quitting...." << endl
+           << endl;
+      // restock shelf
+
+      for (int i = 0; i < maxElm; i++) {
+        qtyOnHand[i] += shoppingCart[i];
+      }
+      return;
+    }
+    qtyOnHand[ind] -= bookQuantity;
+    shoppingCart[ind] += bookQuantity;
+
+    cout << "Would you like to purchase another book? (y/N) ";
+    cin >> userInput;
+    cin.ignore();
+
+    if (userInput == "y") {
+      continue;
+    }
+
     // header
+    cout << "Today's Date: ";
+    coutTime();
+    cout << endl;
     cout << "Serendipity Book Sellers" << endl
          << "Date: " << endl
-         << setw(6) << "Qty" << setw(8) << "ISBN" << setw(20) << "Title"
+         << setw(6) << "Qty" << setw(20) << "ISBN" << setw(20) << "Title"
          << setw(15) << "Price" << setw(15) << "Total" << endl
          << setfill('_') << setw(100) << "" << endl
          << setfill(' ');
 
-    // Content
-    subtotal = bookQuantity * price;
-    salesTax = subtotal * TAX_RATE;
-    total = salesTax + subtotal;
+    for (int i = 0; i < maxElm; i++) {
+      // Content
+      if (shoppingCart[i] != 0) {
+        subtotal += shoppingCart[i] * retail[i];
+        salesTax += subtotal * TAX_RATE;
+        total += salesTax + subtotal;
 
-    cout << setw(6) << fixed << bookQuantity << setw(8) << ISBN << setw(20)
-         << bookTitle << setw(15) << setprecision(2) << price << setw(15)
-         << price * bookQuantity << endl;
+        cout << setw(6) << fixed << shoppingCart[i] << setw(20) << isbn[i]
+             << setw(20) << bookTitle[i] << setw(15) << setprecision(2)
+             << retail[i] << setw(15) << shoppingCart[i] * retail[i] << endl;
+      }
+    }
     //
     // footer
     cout << setw(10) << "" << setw(20) << left << "Subtotal" << setw(50)
@@ -86,6 +122,21 @@ void cashier() {
     cin.ignore();
 
     exitRegister = userInput == "y" ? false : true;
+    subtotal = 0;
+    salesTax = 0;
+    total = 0;
+    for (int i = 0; i < maxElm; i++) {
+      shoppingCart[i] = 0;
+    }
     cout << endl;
   }
+}
+
+int findISBN(string ISBN) {
+  for (int i = 0; i < maxElm; i++) {
+    if (ISBN == isbn[i]) {
+      return i;
+    }
+  }
+  return -1;
 }

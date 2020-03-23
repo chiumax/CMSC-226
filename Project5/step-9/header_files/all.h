@@ -17,6 +17,11 @@ void bookInfo(string isbn, string title, string author, string publisher,
 
 void cashier();
 
+// custom functions for cashier
+
+// given isbn string return index
+int findISBN(string ISBN);
+
 /*
     invmenu.cpp
 */

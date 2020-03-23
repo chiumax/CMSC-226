@@ -1,20 +1,20 @@
 TODO - ✖✔
 
-✖ - use pointers for 
+✔ - use pointers for 
 
   ✔ repQty
   ✔ repCost
-  ✖ repAge
+  ✔ repAge
   
   - ex: int* idPtr[SIZE] // pointers to tracking array,
         int* qtyPtr[SIZE] // array of pointers to qtyOnHand array, and also for selection sort
 
-✖ - ask if more books to buy else calculate (cashier)
+✔ - ask if more books to buy else calculate (cashier)
 
-✖ - use isbn to identify books (isbn)
-  ✖ if wrong ask if ask again
+✔ - use isbn to identify books (isbn)
+  ✔ if wrong ask if ask again
   
-✖ - qtyOnHand check if # of copy
+✔ - qtyOnHand check if # of copy
 
 Reports menu
 
