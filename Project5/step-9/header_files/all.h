@@ -70,6 +70,11 @@ void coutTime();
 
 // descending sort
 void descendingSort(double *pointer, double *p[]);
+// overload for int
+void descendingSort(int *pointer, int *p[]);
+// overload for string
+void descendingSort(string *pointer, string *p[]);
+
 // print
 // Global Variables
 // bookinfo.cpp

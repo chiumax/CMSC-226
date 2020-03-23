@@ -27,7 +27,7 @@ string author[20] = {"JKJK", "Doe", "Yaaa", "Mcqing"};
 string publisher[20] = {"Didney", "Holly", "Pixar", "Didney"};
 string dateAdded[20] = {"05-05-2020", "05-06-2021", "05-06-2019", "05-05-2020"};
 
-int qtyOnHand[20] = {2, 0, 6, 1};
+int qtyOnHand[20] = {2, 0, 6, 7};
 
 double wholesale[20] = {1.01, 2.02, 9.99, 3.04};
 double retail[20] = {0.51, 1.51, 4.55, 3.04};

@@ -161,6 +161,22 @@ void repQty() {
        << "Date: ";
   coutTime();
   cout << endl;
+
+  int *p[maxElm];
+  descendingSort(&qtyOnHand[0], p);
+  int count = 1;
+  for (int i = 0; i < maxElm; i++) {
+    int ind = p[i] - &qtyOnHand[0];
+    if (isbn[ind] != "\0" && isbn[ind] != "") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << bookTitle[ind] << endl
+           << "ISBN #: " << isbn[ind] << endl
+           << "Quantity on Hand: " << qtyOnHand[ind] << endl
+           << "=====" << endl;
+      count++;
+    }
+  }
 }
 
 void repCost() {
@@ -171,12 +187,9 @@ void repCost() {
        << "Date: ";
   coutTime();
   cout << endl;
+
   double *p[maxElm];
   descendingSort(&wholesale[0], p);
-  // for(int i =0; i< maxElm; i++){
-  //   cout << p[i];
-  // }
-
   int count = 1;
   for (int i = 0; i < maxElm; i++) {
     int ind = p[i] - &wholesale[0];
@@ -186,7 +199,7 @@ void repCost() {
            << "Title: " << bookTitle[ind] << endl
            << "ISBN #: " << isbn[ind] << endl
            << "Quantity on Hand: " << qtyOnHand[ind] << endl
-           << "Wholesale Price: " << wholesale[ind] << endl
+           << "Wholesale Cost: " << wholesale[ind] << endl
            << "=====" << endl;
       count++;
     }
@@ -201,6 +214,40 @@ void repAge() {
        << "Date: ";
   coutTime();
   cout << endl;
+
+  // preprocess dates
+  string val[maxElm];
+  string *p[maxElm];
+  for (int i = 0; i < maxElm; i++) {
+    // reordering string for comparison
+    // YYYY-MM-DD
+
+    // dates are MM-DD-YYYY for substring
+    // 0,2 3,2 6,4
+    string date = dateAdded[i];
+
+    if (date != "") {
+      val[i] = date.substr(6, 4) + date.substr(0, 2) + date.substr(3, 2);
+    }
+  }
+  descendingSort(&val[0], p);
+
+  // descendingSortDate(&dateAdded[0], p);
+  int count = 1;
+  for (int i = 0; i < maxElm; i++) {
+    int ind = p[i] - &val[0];
+
+    if (isbn[ind] != "\0" && isbn[ind] != "") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << bookTitle[ind] << endl
+           << "ISBN #: " << isbn[ind] << endl
+           << "Quantity on Hand: " << qtyOnHand[ind] << endl
+           << "Date Added (MM-DD-YYYY): " << dateAdded[ind] << endl
+           << "=====" << endl;
+      count++;
+    }
+  }
 }
 
 void coutTime() {
@@ -239,20 +286,52 @@ void descendingSort(double *pointer, double *p[]) {
     p[i] = temp;
   }
 }
+void descendingSort(int *pointer, int *p[]) {
+  // uses selection sort to sort items in descending order
+  // pointer is array of pointers to sort
+  // double *p[maxElm];
+  int max = 0;
 
-void descendingSortDate(int *pointer[]) {
-  // calls descendingSort but does some data preprocessing
-
-  int val[maxElm];
-  int *p = val;
-
+  // assign pointers to array
   for (int i = 0; i < maxElm; i++) {
-    // basically converting years to days
-    // months to days
-    // adding it all together so it can be compared
+    p[i] = pointer + i;
+  }
 
-    // dates are MM-DD-YYYY for substring
-    string date = dateAdded[i];
-    val[i] = stoi(date.substr()) * +stoi(date.substr()) + stoi(date.substr());
+  // using selection sort
+  for (int i = 0; i < maxElm; i++) {
+    max = i;
+    for (int j = i; j < maxElm; j++) {
+      if (*p[max] < *p[j]) {
+        max = j;
+      }
+    }
+    int *temp = p[max];
+    p[max] = p[i];
+    p[i] = temp;
+  }
+}
+void descendingSort(string *pointer, string *p[]) {
+  // uses selection sort to sort items in descending order
+  // pointer is array of pointers to sort
+  // double *p[maxElm];
+  int max = 0;
+
+  // assign pointers to array
+  for (int i = 0; i < maxElm; i++) {
+    p[i] = pointer + i;
+  }
+
+  // using selection sort
+  for (int i = 0; i < maxElm; i++) {
+    max = i;
+    for (int j = i; j < maxElm; j++) {
+      if ((*p[max]) > (*p[j])) {
+
+        max = j;
+      }
+    }
+    string *temp = p[max];
+    p[max] = p[i];
+    p[i] = temp;
   }
 }

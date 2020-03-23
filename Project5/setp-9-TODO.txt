@@ -2,8 +2,8 @@ TODO - ✖✔
 
 ✖ - use pointers for 
 
-  ✖ repQty
-  ✖ repCost
+  ✔ repQty
+  ✔ repCost
   ✖ repAge
   
   - ex: int* idPtr[SIZE] // pointers to tracking array,
@@ -18,78 +18,78 @@ TODO - ✖✔
 
 Reports menu
 
-✖ - repListing, print:
+✔ - repListing, print:
   
-  ✖ title
-  ✖ ISBN number
-  ✖ author
-  ✖ publisher
-  ✖ dat added to inventory
-  ✖ qty on hand
-  ✖ wholesale cost
-  ✖ retail price
+  ✔ title
+  ✔ ISBN number
+  ✔ author
+  ✔ publisher
+  ✔ dat added to inventory
+  ✔ qty on hand
+  ✔ wholesale cost
+  ✔ retail price
   
   - report should display
   
-  ✖ appropriate title that includes the date
+  ✔ appropriate title that includes the date
   
 
   
 
-✖ - repWholesale, print:
+✔ - repWholesale, print:
 
-  ✖ title
-  ✖ ISBN number
-  ✖ qty on hand
-  ✖ wholesale cost
+  ✔ title
+  ✔ ISBN number
+  ✔ qty on hand
+  ✔ wholesale cost
   
-  ✖ app. title & the date
+  ✔ app. title & the date
   
-  ✖ last line give the total wholesale value of inventory
+  ✔ last line give the total wholesale value of inventory
   
 
-✖ - repRetail, print:
+✔ - repRetail, print:
 
-  ✖ title
-  ✖ ISBN number
-  ✖ qty on hand
-  ✖ retail price
+  ✔ title
+  ✔ ISBN number
+  ✔ qty on hand
+  ✔ retail price
   
-  ✖ app. title & the date
+  ✔ app. title & the date
   
-  ✖ last line give the total retail of inventory
+  ✔ last line give the total retail of inventory
   
-✖ - repQty, print:
+✔ - repQty, print:
 
-  ✖ title
-  ✖ ISBN number
-  ✖ qty on hand
+  ✔ title
+  ✔ ISBN number
+  ✔ qty on hand
   
-  ✖ sort by qty in descending (large -> small)
+  ✔ sort by qty in descending (large -> small)
   
-  ✖ app. title & the date
+  ✔ app. title & the date
   
-✖ - repCost, print:
+✔ - repCost, print:
 
-  ✖ title
-  ✖ ISBN number
-  ✖ qty on hand
-  ✖ wholesale cost
+  ✔ title
+  ✔ ISBN number
+  ✔ qty on hand
+  ✔ wholesale cost
   
-  ✖ sort by wholesale cost in descenting order
+  ✔ sort by wholesale cost in descenting order
   
-  ✖ app. title & the date
+  ✔ app. title & the date
   
-✖ - repAge, print:
+✔ - repAge, print:
 
-  ✖ title
-  ✖ ISBN number
-  ✖ qty on hand
-  ✖ date added to inventory
+  ✔ title
+  ✔ ISBN number
+  ✔ qty on hand
+  ✔ date added to inventory
   
-  ✖ sort by date added in descending order (the books that have been in inventory longest will be listed first). 
+  ✔ sort by date added in descending order (the books that have been in inventory longest will be listed first). 
   
-  ✖ app. title & the date
+  ✔ app. title & the date
   
   
   
