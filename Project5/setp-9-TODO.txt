@@ -5,7 +5,7 @@ TODO - ✖✔
   ✔ repQty
   ✔ repCost
   ✔ repAge
-  
+   
   - ex: int* idPtr[SIZE] // pointers to tracking array,
         int* qtyPtr[SIZE] // array of pointers to qtyOnHand array, and also for selection sort
 
