@@ -62,7 +62,7 @@ void cashier() {
     cin >> bookQuantity;
     cin.ignore();
 
-    if (qtyOnHand[ind] - bookQuantity < 0) {
+    if (qtyOnHand[ind] - bookQuantity < 0 || bookQuantity < 0) {
       cout << "Not enough book in stock!" << endl
            << "Quitting...." << endl
            << endl;
