@@ -8,8 +8,9 @@ using namespace std;
 /*
     bookinfo.cpp
 */
-void bookInfo(string isbn, string title, string author, string publisher,
-              string date, int qty, double wholesale, double retail);
+void bookInfo(char isbn[14], char title[51], char author[31],
+              char publisher[31], char date[11], int qty, double wholesale,
+              double retail);
 
 /*
     cashier.cpp
@@ -89,11 +90,11 @@ void descendingSort(string *pointer, string *p[]);
 
  no need to use extern i believe
 */
-extern string bookTitle[20];
-extern string isbn[20];
-extern string author[20];
-extern string publisher[20];
-extern string dateAdded[20];
+extern char bookTitle[20][51];
+extern char isbn[20][14];
+extern char author[20][31];
+extern char publisher[20][31];
+extern char dateAdded[20][11];
 
 extern int qtyOnHand[20];
 
@@ -101,6 +102,6 @@ extern double wholesale[20];
 extern double retail[20];
 
 // number of elements
-extern int maxElm;
+int maxElm = 20;
 
 #endif
