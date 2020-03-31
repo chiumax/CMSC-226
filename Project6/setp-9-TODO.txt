@@ -14,47 +14,45 @@ Modify the program to use C-Strings
 
 Modify bookInfo to work with following parameters
 
-✖ - isbn = [14] char array
+✔ - isbn = [14] char array
 
-✖ - title = [51] char array
+✔ - title = [51] char array
 
-✖ - author = [31] char array
+✔ - author = [31] char array
 
-✖ - publisher = [31] char array
+✔ - publisher = [31] char array
 
-✖ - date = [11] char array
+✔ - date = [11] char array
 
 Create strUpper function
 
-✖ - accept pointer to a string as argument
+✔ - accept pointer to a string as argument
 
-✖ - convert each character in string to uppercase
+✔ - convert each character in string to uppercase
 
 Modify the addBook function
 
-✖ - calls strUpper for the following items before writing to array:
-    ✖ - book title
-    ✖ - isbn number
-    ✖ - author's name
-    ✖ - publisher
+✔ - calls strUpper for the following items before writing to array:
+    ✔ - book title
+    ✔ - isbn number
+    ✔ - author's name
+    ✔ - publisher
 
 Modify the lookUpBook function
 
     currently requires full name of book
-    ✖ - partial book lookup 
-        ✖ - use strstr
-        ✖ - if book doesn't exist ask if search again?
+    ✔ - partial book lookup 
+        ✔ - use strstr
+        ✔ - if book doesn't exist ask if search again?
 
-    ✖ - show list of books
-        ✖ - accept user input to select one
+    ✔ - show list of books
+        ✔ - accept user input to select one
 
 Modify the editBook function
 
-    ✖ - same thing as lookupbook
+    ✔ - same thing as lookupbook
 
 Modify the deleteBook function
 
-    ✖ - same thing as lookupbook
+    ✔ - same thing as lookupbook
 
-    hahah good thing i have structure written that only requires 
-    me to change it one place

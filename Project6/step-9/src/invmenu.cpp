@@ -5,6 +5,7 @@ Max C.
 
 Inventory Module
 */
+#include <cstring>
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -81,37 +82,30 @@ void lookUpBook() {
 }
 
 void addBook() {
-  string stringInput;
   double doubleInput;
   int intInput;
   cout << "You selected Add Book." << endl;
 
   for (int i = 0; i < 20; i++) {
-    if (bookTitle[i] == "" || bookTitle[i] == "\0") {
+    if (bookTitle[i][0] == '\0') {
       cout << "Book title: ";
-
-      getline(cin, stringInput);
-      bookTitle[i] = stringInput;
+      cin.getline(bookTitle[i], 51);
+      strUpper((bookTitle[i]));
 
       cout << "ISBN #: ";
-      cin >> stringInput;
-      cin.ignore();
-      isbn[i] = stringInput;
+      cin.getline(isbn[i], 14);
+      strUpper((isbn[i]));
 
       cout << "Author's name: ";
-
-      getline(cin, stringInput);
-      author[i] = stringInput;
+      cin.getline(author[i], 31);
+      strUpper((author[i]));
 
       cout << "Publisher's name: ";
-
-      getline(cin, stringInput);
-      publisher[i] = stringInput;
+      cin.getline(publisher[i], 31);
+      strUpper((publisher[i]));
 
       cout << "Date: ";
-      cin >> stringInput;
-      cin.ignore();
-      dateAdded[i] = stringInput;
+      cin.getline(dateAdded[i], 11);
 
       cout << "Quantity of book: ";
       cin >> intInput;
@@ -176,22 +170,52 @@ void deleteBook() {
     cin.ignore();
 
     if (tempInput == "y") {
-      bookTitle[index] = "\0";
-      isbn[index] = "\0";
+      bookTitle[index][0] = '\0';
+      isbn[index][0] = '\0';
 
       cout << "Book deleted..." << endl;
     }
   }
 }
 
+void strUpper(char *input) {
+  for (int i = 0; i < (int)strlen(input); i++) {
+    input[i] = toupper(input[i]);
+  }
+}
 // custom Function
 
 // return index of book given userBook
 // if not found, return -1
 int bookIndex(string userBook) {
+  int matchingBooks[maxElm] = {0};
+  int matchingCount = 0;
+  int userChoice = 0;
+  char userBookChar[51];
+  strcpy(userBookChar, userBook.c_str());
+  strUpper(userBookChar);
   for (int i = 0; i < 20; i++) {
-    if (bookTitle[i] == userBook) {
-      return i;
+    if (strstr(bookTitle[i], userBookChar)) {
+      matchingBooks[matchingCount] = i;
+      matchingCount++;
+    }
+  }
+  if (matchingCount > 0) {
+    for (int i = 0; i < matchingCount; i++) {
+      cout << "==========" << endl << i + 1 << "." << endl;
+
+      displayBook(matchingBooks[i]);
+    }
+    while (true) {
+      cout << endl << "Choose a book: ";
+      cin >> userChoice;
+      cin.ignore();
+
+      if (userChoice - 1 < matchingCount && userChoice > 0) {
+        return matchingBooks[userChoice - 1];
+      } else {
+        cout << endl << "Invalid Choice" << endl;
+      }
     }
   }
   return -1;
@@ -202,8 +226,6 @@ int bookIndex(string userBook) {
 void editBookMenu(int bookIndex) {
   bool exitMenu = false;
   int choice;
-
-  string stringInput;
   double doubleInput;
   int intInput;
 
@@ -227,46 +249,35 @@ void editBookMenu(int bookIndex) {
     case 1:
       if (confirm("ISBN? (y/N): ")) {
         cout << "New value: ";
-        cin >> stringInput;
-        cin.ignore();
-
-        isbn[bookIndex] = stringInput;
+        cin.getline(isbn[bookIndex], 14);
+        strUpper((isbn[bookIndex]));
       }
       break;
     case 2:
       if (confirm("Title? (y/N): ")) {
         cout << "New value: ";
-
-        getline(cin, stringInput);
-
-        bookTitle[bookIndex] = stringInput;
+        cin.getline(bookTitle[bookIndex], 51);
+        strUpper((bookTitle[bookIndex]));
       }
       break;
     case 3:
       if (confirm("Author? (y/N): ")) {
         cout << "New value: ";
-
-        getline(cin, stringInput);
-
-        author[bookIndex] = stringInput;
+        cin.getline(author[bookIndex], 31);
+        strUpper((author[bookIndex]));
       }
       break;
     case 4:
       if (confirm("Publisher? (y/N): ")) {
         cout << "New value: ";
-
-        getline(cin, stringInput);
-
-        publisher[bookIndex] = stringInput;
+        cin.getline(publisher[bookIndex], 31);
+        strUpper((publisher[bookIndex]));
       }
       break;
     case 5:
       if (confirm("Date Added? (y/N): ")) {
         cout << "New value: ";
-        cin >> stringInput;
-        cin.ignore();
-
-        dateAdded[bookIndex] = stringInput;
+        cin.getline(dateAdded[bookIndex], 11);
       }
       break;
     case 6:

@@ -8,9 +8,8 @@ using namespace std;
 /*
     bookinfo.cpp
 */
-void bookInfo(char isbn[14], char title[51], char author[31],
-              char publisher[31], char date[11], int qty, double wholesale,
-              double retail);
+void bookInfo(char isbn[], char title[], char author[], char publisher[],
+              char date[], int qty, double wholesale, double retail);
 
 /*
     cashier.cpp
@@ -36,6 +35,7 @@ void editBook();
 
 void deleteBook();
 
+void strUpper(char *input);
 // custom functions for invmenu
 
 // return index of book given bookName
@@ -101,7 +101,9 @@ extern int qtyOnHand[20];
 extern double wholesale[20];
 extern double retail[20];
 
+// defining variables
+
 // number of elements
-int maxElm = 20;
+extern int maxElm;
 
 #endif

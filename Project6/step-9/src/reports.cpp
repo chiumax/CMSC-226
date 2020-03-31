@@ -81,7 +81,7 @@ void repListing() {
 
   int count = 1;
   for (int i = 0; i < maxElm; i++) {
-    if (isbn[i] != "\0" && isbn[i] != "") {
+    if (isbn[i][0] != '\0') {
       cout << endl << endl << "Book #" << count << endl;
       cout << "=====" << endl
            << "Title: " << bookTitle[i] << endl
@@ -111,7 +111,7 @@ void repWholesale() {
   int count = 1;
   double total = 0;
   for (int i = 0; i < maxElm; i++) {
-    if (isbn[i] != "\0" && isbn[i] != "") {
+    if (isbn[i][0] != '\0') {
       cout << endl << endl << "Book #" << count << endl;
       cout << "=====" << endl
            << "Title: " << bookTitle[i] << endl
@@ -138,7 +138,7 @@ void repRetail() {
   int count = 1;
   double total = 0;
   for (int i = 0; i < maxElm; i++) {
-    if (isbn[i] != "\0" && isbn[i] != "") {
+    if (isbn[i][0] != '\0') {
       cout << endl << endl << "Book #" << count << endl;
       cout << "=====" << endl
            << "Title: " << bookTitle[i] << endl
@@ -167,7 +167,7 @@ void repQty() {
   int count = 1;
   for (int i = 0; i < maxElm; i++) {
     int ind = p[i] - &qtyOnHand[0];
-    if (isbn[ind] != "\0" && isbn[ind] != "") {
+    if (isbn[ind][0] != '\0') {
       cout << endl << endl << "Book #" << count << endl;
       cout << "=====" << endl
            << "Title: " << bookTitle[ind] << endl
@@ -193,7 +193,7 @@ void repCost() {
   int count = 1;
   for (int i = 0; i < maxElm; i++) {
     int ind = p[i] - &wholesale[0];
-    if (isbn[ind] != "\0" && isbn[ind] != "") {
+    if (isbn[ind][0] != '\0') {
       cout << endl << endl << "Book #" << count << endl;
       cout << "=====" << endl
            << "Title: " << bookTitle[ind] << endl
@@ -237,7 +237,7 @@ void repAge() {
   for (int i = 0; i < maxElm; i++) {
     int ind = p[i] - &val[0];
 
-    if (isbn[ind] != "\0" && isbn[ind] != "") {
+    if (isbn[ind][0] != '\0') {
       cout << endl << endl << "Book #" << count << endl;
       cout << "=====" << endl
            << "Title: " << bookTitle[ind] << endl
