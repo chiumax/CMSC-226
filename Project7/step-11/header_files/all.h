@@ -106,4 +106,33 @@ extern double retail[20];
 // number of elements
 extern int maxElm;
 
+class bookData {
+private:
+  char booktTitle[51];
+  char isbn[14];
+  char author[31];
+  char publisher[31];
+  char dateAdded[11];
+
+  int qtyOnHand;
+
+  double wholesale;
+  double retail;
+
+public:
+  // constructors
+  bookData() {
+    bookTitle = "\0";
+    isbn = "\0";
+    author = "\0";
+    publisher = "\0";
+    dateAdded = "\0";
+  }
+
+  bookData(char isbn[], char title[], char author[], char publisher[],
+           char date[], int qty, double wholesale, double retail) {}
+
+  void setTitle(string *p) { bookTitle = }
+}
+
 #endif
