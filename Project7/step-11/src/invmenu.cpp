@@ -84,43 +84,49 @@ void lookUpBook() {
 void addBook() {
   double doubleInput;
   int intInput;
+  char tempInput[51];
   cout << "You selected Add Book." << endl;
 
   for (int i = 0; i < 20; i++) {
-    if (bookTitle[i][0] == '\0') {
+    if (books[i].getTitle == "\0") {
       cout << "Book title: ";
-      cin.getline(bookTitle[i], 51);
-      strUpper((bookTitle[i]));
+      cin.getline(tempInput, 51);
+      strUpper((tempInput));
+      books[i].setTitle(tempInput);
 
       cout << "ISBN #: ";
-      cin.getline(isbn[i], 14);
-      strUpper((isbn[i]));
+      cin.getline(tempInput, 14);
+      strUpper((tempInput));
+      books[i].setISBN(tempInput);
 
       cout << "Author's name: ";
-      cin.getline(author[i], 31);
-      strUpper((author[i]));
+      cin.getline(tempInput, 31);
+      strUpper((tempInput));
+      books[i].setAuthor(tempInput);
 
       cout << "Publisher's name: ";
-      cin.getline(publisher[i], 31);
-      strUpper((publisher[i]));
+      cin.getline(tempInput, 31);
+      strUpper((tempInput));
+      books[i].setPub(tempInput);
 
       cout << "Date: ";
-      cin.getline(dateAdded[i], 11);
+      cin.getline(tempInput, 11);
+      books[i].setDateAdded(tempInput);
 
       cout << "Quantity of book: ";
       cin >> intInput;
       cin.ignore();
-      qtyOnHand[i] = intInput;
+      books[i].setQty(intInput);
 
       cout << "Wholesale cost: ";
       cin >> doubleInput;
       cin.ignore();
-      wholesale[i] = doubleInput;
+      books[i].setWholesale(doubleInput);
 
       cout << "Retail cost: ";
       cin >> doubleInput;
       cin.ignore();
-      retail[i] = doubleInput;
+      books[i].setRetail(doubleInput);
 
       return;
     }
@@ -170,8 +176,8 @@ void deleteBook() {
     cin.ignore();
 
     if (tempInput == "y") {
-      bookTitle[index][0] = '\0';
-      isbn[index][0] = '\0';
+      books[index].setTitle("\0");
+      books[index].setISBN("\0");
 
       cout << "Book deleted..." << endl;
     }
@@ -195,7 +201,7 @@ int bookIndex(string userBook) {
   strcpy(userBookChar, userBook.c_str());
   strUpper(userBookChar);
   for (int i = 0; i < 20; i++) {
-    if (strstr(bookTitle[i], userBookChar)) {
+    if (strstr(books[i].getTitle(), userBookChar)) {
       matchingBooks[matchingCount] = i;
       matchingCount++;
     }
@@ -228,6 +234,7 @@ void editBookMenu(int bookIndex) {
   int choice;
   double doubleInput;
   int intInput;
+  char tempInput[51];
 
   while (exitMenu == false) {
     displayBook(bookIndex);
@@ -249,35 +256,40 @@ void editBookMenu(int bookIndex) {
     case 1:
       if (confirm("ISBN? (y/N): ")) {
         cout << "New value: ";
-        cin.getline(isbn[bookIndex], 14);
-        strUpper((isbn[bookIndex]));
+        cin.getline(tempInput, 14);
+        strUpper((tempInput));
+        books[bookIndex].setISBN(tempInput);
       }
       break;
     case 2:
       if (confirm("Title? (y/N): ")) {
         cout << "New value: ";
-        cin.getline(bookTitle[bookIndex], 51);
-        strUpper((bookTitle[bookIndex]));
+        cin.getline(tempInput, 51);
+        strUpper((tempInput));
+        books[bookIndex].setTitle(tempInput);
       }
       break;
     case 3:
       if (confirm("Author? (y/N): ")) {
         cout << "New value: ";
-        cin.getline(author[bookIndex], 31);
-        strUpper((author[bookIndex]));
+        cin.getline(tempInput, 31);
+        strUpper((tempInput));
+        books[bookIndex].setAuthor(tempInput);
       }
       break;
     case 4:
       if (confirm("Publisher? (y/N): ")) {
         cout << "New value: ";
-        cin.getline(publisher[bookIndex], 31);
-        strUpper((publisher[bookIndex]));
+        cin.getline(tempInput, 31);
+        strUpper((tempInput));
+        books[bookIndex].setPub(tempInput);
       }
       break;
     case 5:
       if (confirm("Date Added? (y/N): ")) {
         cout << "New value: ";
-        cin.getline(dateAdded[bookIndex], 11);
+        cin.getline(tempInput, 11);
+        books[bookIndex].setDateAdded(tempInput);
       }
       break;
     case 6:
@@ -285,8 +297,7 @@ void editBookMenu(int bookIndex) {
         cout << "New value: ";
         cin >> intInput;
         cin.ignore();
-
-        qtyOnHand[bookIndex] = intInput;
+        books[bookIndex].setQty(intInput);
       }
       break;
     case 7:
@@ -294,8 +305,7 @@ void editBookMenu(int bookIndex) {
         cout << "New value: ";
         cin >> doubleInput;
         cin.ignore();
-
-        wholesale[bookIndex] = doubleInput;
+        books[bookIndex].setWholesale(doubleInput);
       }
       break;
     case 8:
@@ -303,8 +313,7 @@ void editBookMenu(int bookIndex) {
         cout << "New value: ";
         cin >> doubleInput;
         cin.ignore();
-
-        retail[bookIndex] = doubleInput;
+        books[bookIndex].setRetail(doubleInput);
       }
       break;
     case 9:
@@ -328,7 +337,8 @@ bool confirm(string message) {
 
 // given book index print out bookInfo()
 void displayBook(int bookIndex) {
-  bookInfo(isbn[bookIndex], bookTitle[bookIndex], author[bookIndex],
-           publisher[bookIndex], dateAdded[bookIndex], qtyOnHand[bookIndex],
-           wholesale[bookIndex], retail[bookIndex]);
+  bookInfo(books[bookIndex].getISBN(), books[bookIndex].getTitle(),
+           books[bookIndex].getAuthor(), books[bookIndex].getPub(),
+           books[bookIndex].getDateAdded(), books[bookIndex].getQty(),
+           books[bookIndex].getWholesale(), books[bookIndex].getRetail());
 }

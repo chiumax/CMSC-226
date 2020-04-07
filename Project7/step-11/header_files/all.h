@@ -139,70 +139,36 @@ public:
 
   bookData(char isbn[], char title[], char author[], char publisher[],
            char date[], int qty, double wholesale, double retail) {}
-  
-  bool isEmpty() {
-    return (bookTitle[0] == '\0')
-  }
 
-  void removeBook() {
-    this.bookTitle = '\0';
-  }
+  bool isEmpty() { return (bookTitle[0] == '\0') }
+
+  void removeBook() { this.bookTitle = '\0'; }
 
   // setters
 
-  void setTitle(string p) { 
-    strcpy(this.bookTitle, (p).s_str())
-    }
-  void setISBN(string p) { 
-    strcpy(this.isbn, (p).s_str())
-    }
-  void setAuthor(string p) { 
-    strcpy(this.author, (p).s_str())
-    }
-  void setPub(string p) { 
-    strcpy(this.publisher, (p).s_str())
-    }
-  void setDateAdded(string p) { 
-    strcpy(this.dateAdded, (p).s_str())
-    }
+  void setTitle(string p) { strcpy(this.bookTitle, (p).s_str()) }
+  void setISBN(string p) { strcpy(this.isbn, (p).s_str()) }
+  void setAuthor(string p) { strcpy(this.author, (p).s_str()) }
+  void setPub(string p) { strcpy(this.publisher, (p).s_str()) }
+  void setDateAdded(string p) { strcpy(this.dateAdded, (p).s_str()) }
 
-  void setQty(int val) {
-    this.qtyOnHand = val;
-  }
+  void setQty(int val) { this.qtyOnHand = val; }
 
-  void setWholesale(double val) {
-    this.wholesale = val;
-  }
-  void setRetail(double val) {
-    this.retail = val;
-  }
+  void setWholesale(double val) { this.wholesale = val; }
+  void setRetail(double val) { this.retail = val; }
 
   // getters
 
-  string getTitle() {
-    return this.bookTitle;
-  }
-  string getISBN() {
-    return this.isbn;
-  }
-  string getAuthor() {
-    return this.author;
-  }
-  string getPub() {
-    return this.publisher;
-  }
-  
-  int getQty() {
-    return this.qtyOnHand;
-  }
+  string getTitle() { return this.bookTitle; }
+  string getISBN() { return this.isbn; }
+  string getAuthor() { return this.author; }
+  string getPub() { return this.publisher; }
+  string getDateAdded() { return this.dateAdded; }
 
-  double getWholesale() {
-    return this.wholesale;
-  }
-  double getRetail() {
-    return this.retail;
-  }
+  int getQty() { return this.qtyOnHand; }
 
+  double getWholesale() { return this.wholesale; }
+  double getRetail() { return this.retail; }
 }
 
 #endif
