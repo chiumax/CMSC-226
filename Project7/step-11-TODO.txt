@@ -3,14 +3,14 @@ TODO - ✖✔
 Create the structure declaration (book Data)
 
 ✖ - create bookData struct
-    ✖ - bookTitle = char[51]
-    ✖ - isbn       = char[14]
-    ✖ - author     = char[31]
-    ✖ - publisher  = char[31]
-    ✖ - dateAdded  = char[11]
-    ✖ - qtyOnHand  = int
-    ✖ - wholesale  = double
-    ✖ - retail     = double
+    ✔ - bookTitle = char[51]
+    ✔ - isbn       = char[14]
+    ✔ - author     = char[31]
+    ✔ - publisher  = char[31]
+    ✔ - dateAdded  = char[11]
+    ✔ - qtyOnHand  = int
+    ✔ - wholesale  = double
+    ✔ - retail     = double
 
     !!! Make sure to COPY the string!
     ✖ - void setTitle(string *p)
@@ -24,13 +24,13 @@ Create the structure declaration (book Data)
     ✖ - int or bool isEmpty()
     ✖ - removeBook() sets bookTitle to 0 (the nulll terminator)
 
-    ✖ - getTitle
-    ✖ - getISBN
-    ✖ - getAuthor
-    ✖ - getPub
-    ✖ - getQty
-    ✖ - setWholesale
-    ✖ - getRetail
+    ✔ - getTitle
+    ✔ - getISBN
+    ✔ - getAuthor
+    ✔ - getPub
+    ✔ - getQty
+    ✔ - setWholesale
+    ✔ - getRetail
 
 ✖ - update all code using isbn as existence
 

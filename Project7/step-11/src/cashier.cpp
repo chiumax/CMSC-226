@@ -66,7 +66,7 @@ void cashier() {
       cout << "Not enough book in stock!" << endl
            << "Quitting...." << endl
            << endl;
-      // restock shelf
+      // restock shelf with stuff from cart
 
       for (int i = 0; i < maxElm; i++) {
         qtyOnHand[i] += shoppingCart[i];

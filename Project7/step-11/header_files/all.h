@@ -90,25 +90,29 @@ void descendingSort(string *pointer, string *p[]);
 
  no need to use extern i believe
 */
-extern char bookTitle[20][51];
-extern char isbn[20][14];
-extern char author[20][31];
-extern char publisher[20][31];
-extern char dateAdded[20][11];
+/////////////////////////////////////////////////
+// extern char bookTitle[20][51];
+// extern char isbn[20][14];
+// extern char author[20][31];
+// extern char publisher[20][31];
+// extern char dateAdded[20][11];
 
-extern int qtyOnHand[20];
+// extern int qtyOnHand[20];
 
-extern double wholesale[20];
-extern double retail[20];
+// extern double wholesale[20];
+// extern double retail[20];
+/////////////////////////////////////////////////
 
 // defining variables
 
 // number of elements
 extern int maxElm;
 
+extern bookData books[20];
+
 class bookData {
 private:
-  char booktTitle[51];
+  char bookTitle[51];
   char isbn[14];
   char author[31];
   char publisher[31];
@@ -127,12 +131,78 @@ public:
     author = "\0";
     publisher = "\0";
     dateAdded = "\0";
+
+    qtyOnHand = 0;
+    wholesale = 0;
+    retail = 0;
   }
 
   bookData(char isbn[], char title[], char author[], char publisher[],
            char date[], int qty, double wholesale, double retail) {}
+  
+  bool isEmpty() {
+    return (bookTitle[0] == '\0')
+  }
 
-  void setTitle(string *p) { bookTitle = }
+  void removeBook() {
+    this.bookTitle = '\0';
+  }
+
+  // setters
+
+  void setTitle(string p) { 
+    strcpy(this.bookTitle, (p).s_str())
+    }
+  void setISBN(string p) { 
+    strcpy(this.isbn, (p).s_str())
+    }
+  void setAuthor(string p) { 
+    strcpy(this.author, (p).s_str())
+    }
+  void setPub(string p) { 
+    strcpy(this.publisher, (p).s_str())
+    }
+  void setDateAdded(string p) { 
+    strcpy(this.dateAdded, (p).s_str())
+    }
+
+  void setQty(int val) {
+    this.qtyOnHand = val;
+  }
+
+  void setWholesale(double val) {
+    this.wholesale = val;
+  }
+  void setRetail(double val) {
+    this.retail = val;
+  }
+
+  // getters
+
+  string getTitle() {
+    return this.bookTitle;
+  }
+  string getISBN() {
+    return this.isbn;
+  }
+  string getAuthor() {
+    return this.author;
+  }
+  string getPub() {
+    return this.publisher;
+  }
+  
+  int getQty() {
+    return this.qtyOnHand;
+  }
+
+  double getWholesale() {
+    return this.wholesale;
+  }
+  double getRetail() {
+    return this.retail;
+  }
+
 }
 
 #endif
