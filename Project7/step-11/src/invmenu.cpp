@@ -88,7 +88,7 @@ void addBook() {
   cout << "You selected Add Book." << endl;
 
   for (int i = 0; i < 20; i++) {
-    if (books[i].getTitle == "\0") {
+    if (books[i].getTitle() == "\0") {
       cout << "Book title: ";
       cin.getline(tempInput, 51);
       strUpper((tempInput));
@@ -176,9 +176,8 @@ void deleteBook() {
     cin.ignore();
 
     if (tempInput == "y") {
-      books[index].setTitle("\0");
-      books[index].setISBN("\0");
 
+      books[index].removeBook();
       cout << "Book deleted..." << endl;
     }
   }
@@ -201,7 +200,7 @@ int bookIndex(string userBook) {
   strcpy(userBookChar, userBook.c_str());
   strUpper(userBookChar);
   for (int i = 0; i < 20; i++) {
-    if (strstr(books[i].getTitle(), userBookChar)) {
+    if (strstr(books[i].getTitle().c_str(), userBookChar)) {
       matchingBooks[matchingCount] = i;
       matchingCount++;
     }

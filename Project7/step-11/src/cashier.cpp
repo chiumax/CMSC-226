@@ -54,26 +54,26 @@ void cashier() {
       continue;
     }
 
-    cout << "Book title: " << bookTitle[ind] << endl
-         << "Retail Price: " << retail[ind] << endl
-         << "Quantity: " << qtyOnHand[ind] << endl;
+    cout << "Book title: " << books[ind].getTitle() << endl
+         << "Retail Price: " << books[ind].getRetail() << endl
+         << "Quantity: " << books[ind].getQty() << endl;
 
     cout << "How many books would you like to purchase? : ";
     cin >> bookQuantity;
     cin.ignore();
 
-    if (qtyOnHand[ind] - bookQuantity < 0) {
+    if (books[ind].getQty() - bookQuantity < 0) {
       cout << "Not enough book in stock!" << endl
            << "Quitting...." << endl
            << endl;
       // restock shelf with stuff from cart
 
       for (int i = 0; i < maxElm; i++) {
-        qtyOnHand[i] += shoppingCart[i];
+        books[i].setQty(books[i].getQty() + shoppingCart[i]);
       }
       return;
     }
-    qtyOnHand[ind] -= bookQuantity;
+    books[ind].setQty(books[ind].getQty() - bookQuantity);
     shoppingCart[ind] += bookQuantity;
 
     cout << "Would you like to purchase another book? (y/N) ";
@@ -98,13 +98,14 @@ void cashier() {
     for (int i = 0; i < maxElm; i++) {
       // Content
       if (shoppingCart[i] != 0) {
-        subtotal += shoppingCart[i] * retail[i];
+        subtotal += shoppingCart[i] * books[i].getRetail();
         salesTax += subtotal * TAX_RATE;
         total += salesTax + subtotal;
 
-        cout << setw(6) << fixed << shoppingCart[i] << setw(20) << isbn[i]
-             << setw(20) << bookTitle[i] << setw(15) << setprecision(2)
-             << retail[i] << setw(15) << shoppingCart[i] * retail[i] << endl;
+        cout << setw(6) << fixed << shoppingCart[i] << setw(20)
+             << books[i].getISBN() << setw(20) << books[i].getTitle()
+             << setw(15) << setprecision(2) << books[i].getRetail() << setw(15)
+             << shoppingCart[i] * books[i].getRetail() << endl;
       }
     }
     //
@@ -134,7 +135,7 @@ void cashier() {
 
 int findISBN(string ISBN) {
   for (int i = 0; i < maxElm; i++) {
-    if (ISBN == isbn[i]) {
+    if (ISBN == books[i].getISBN()) {
       return i;
     }
   }

@@ -1,6 +1,7 @@
 #ifndef MAIN_HEADER
 #define MAIN_HEADER
 
+#include <cstring>
 #include <string>
 
 using namespace std;
@@ -8,8 +9,8 @@ using namespace std;
 /*
     bookinfo.cpp
 */
-void bookInfo(char isbn[], char title[], char author[], char publisher[],
-              char date[], int qty, double wholesale, double retail);
+void bookInfo(string isbn, string title, string author, string publisher,
+              string date, int qty, double wholesale, double retail);
 
 /*
     cashier.cpp
@@ -108,8 +109,6 @@ void descendingSort(string *pointer, string *p[]);
 // number of elements
 extern int maxElm;
 
-extern bookData books[20];
-
 class bookData {
 private:
   char bookTitle[51];
@@ -126,11 +125,11 @@ private:
 public:
   // constructors
   bookData() {
-    bookTitle = "\0";
-    isbn = "\0";
-    author = "\0";
-    publisher = "\0";
-    dateAdded = "\0";
+    strcpy(this->bookTitle, "\0");
+    strcpy(this->isbn, "\0");
+    strcpy(this->author, "\0");
+    strcpy(this->publisher, "\0");
+    strcpy(this->dateAdded, "\0");
 
     qtyOnHand = 0;
     wholesale = 0;
@@ -140,35 +139,37 @@ public:
   bookData(char isbn[], char title[], char author[], char publisher[],
            char date[], int qty, double wholesale, double retail) {}
 
-  bool isEmpty() { return (bookTitle[0] == '\0') }
+  bool isEmpty() { return (bookTitle[0] == '\0'); }
 
-  void removeBook() { this.bookTitle = '\0'; }
+  void removeBook() { strcpy(this->bookTitle, "\0"); }
 
   // setters
 
-  void setTitle(string p) { strcpy(this.bookTitle, (p).s_str()) }
-  void setISBN(string p) { strcpy(this.isbn, (p).s_str()) }
-  void setAuthor(string p) { strcpy(this.author, (p).s_str()) }
-  void setPub(string p) { strcpy(this.publisher, (p).s_str()) }
-  void setDateAdded(string p) { strcpy(this.dateAdded, (p).s_str()) }
+  void setTitle(string p) { strcpy(this->bookTitle, (p).c_str()); }
+  void setISBN(string p) { strcpy(this->isbn, (p).c_str()); }
+  void setAuthor(string p) { strcpy(this->author, (p).c_str()); }
+  void setPub(string p) { strcpy(this->publisher, (p).c_str()); }
+  void setDateAdded(string p) { strcpy(this->dateAdded, (p).c_str()); }
 
-  void setQty(int val) { this.qtyOnHand = val; }
+  void setQty(int val) { this->qtyOnHand = val; }
 
-  void setWholesale(double val) { this.wholesale = val; }
-  void setRetail(double val) { this.retail = val; }
+  void setWholesale(double val) { this->wholesale = val; }
+  void setRetail(double val) { this->retail = val; }
 
   // getters
 
-  string getTitle() { return this.bookTitle; }
-  string getISBN() { return this.isbn; }
-  string getAuthor() { return this.author; }
-  string getPub() { return this.publisher; }
-  string getDateAdded() { return this.dateAdded; }
+  string getTitle() { return this->bookTitle; }
+  string getISBN() { return this->isbn; }
+  string getAuthor() { return this->author; }
+  string getPub() { return this->publisher; }
+  string getDateAdded() { return this->dateAdded; }
 
-  int getQty() { return this.qtyOnHand; }
+  int getQty() { return this->qtyOnHand; }
 
-  double getWholesale() { return this.wholesale; }
-  double getRetail() { return this.retail; }
-}
+  double getWholesale() { return this->wholesale; }
+  double getRetail() { return this->retail; }
+};
+
+extern bookData books[20];
 
 #endif

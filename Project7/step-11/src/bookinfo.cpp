@@ -13,8 +13,8 @@ Book Info module
 
 using namespace std;
 
-void bookInfo(char isbn[], char title[], char author[], char publisher[],
-              char date[], int qty, double wholesale, double retail) {
+void bookInfo(string isbn, string title, string author, string publisher,
+              string date, int qty, double wholesale, double retail) {
 
   /*
 

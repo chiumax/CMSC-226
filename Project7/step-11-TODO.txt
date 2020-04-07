@@ -2,7 +2,7 @@ TODO - ✖✔
 
 Create the structure declaration (book Data)
 
-✖ - create bookData struct
+✔ - create bookData struct
     ✔ - bookTitle = char[51]
     ✔ - isbn       = char[14]
     ✔ - author     = char[31]
@@ -13,16 +13,16 @@ Create the structure declaration (book Data)
     ✔ - retail     = double
 
     !!! Make sure to COPY the string!
-    ✖ - void setTitle(string *p)
-    ✖ - void setISBN(string *p)
-    ✖ - void setAuthor(string *p)
-    ✖ - void setPub(string *p)
-    ✖ - void setDateAdded(string *p)
-    ✖ - void setQty(int i) 
-    ✖ - void  setWholesale(double d)
-    ✖ - void setRetail(double d)
-    ✖ - int or bool isEmpty()
-    ✖ - removeBook() sets bookTitle to 0 (the nulll terminator)
+    ✔ - void setTitle(string *p)
+    ✔ - void setISBN(string *p)
+    ✔ - void setAuthor(string *p)
+    ✔ - void setPub(string *p)
+    ✔ - void setDateAdded(string *p)
+    ✔ - void setQty(int i) 
+    ✔ - void  setWholesale(double d)
+    ✔ - void setRetail(double d)
+    ✔ - int or bool isEmpty()
+    ✔ - removeBook() sets bookTitle to 0 (the nulll terminator)
 
     ✔ - getTitle
     ✔ - getISBN
@@ -32,29 +32,29 @@ Create the structure declaration (book Data)
     ✔ - setWholesale
     ✔ - getRetail
 
-✖ - update all code using isbn as existence
+✔ - update all code using isbn as existence
 
-✖ - replace all of the arrays with a single array of structures (bookData) of length 20
+✔ - replace all of the arrays with a single array of structures (bookData) of length 20
 
 Modify addBook function
 
-    ✖ - modify so it works with new struct
+    ✔ - modify so it works with new struct
 
 Modify lookUpBook function
 
-    ✖ - make it work
+    ✔ - make it work
 
 Modify editBook function
 
-    ✖ - make it work
+    ✔ - make it work
 
 Modify the deleteBook function
 
-    ✖ - make it work (use removeBook function)
+    ✔ - make it work (use removeBook function)
 
 Modify the cashier function
 
-    ✖ - make it work
+    ✔ - make it work
 
     
 
