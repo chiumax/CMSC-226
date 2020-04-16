@@ -5,6 +5,8 @@ Max C.
 
 Main Menu Module
 */
+#include <cstring>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -37,7 +39,11 @@ using namespace std;
 
 bookData books[20];
 int maxElm = 20;
+fstream file("../inventory.txt", ios::app | ios::binary);
+fstream inFile("../inventory.txt", ios::in | ios::binary);
+fstream outFile("../inventory.txt", ios::ate | ios::binary | ios::app);
 
+bookData book;
 // char bookTitle[20][51] = {"\0"};
 // char isbn[20][14] = {"\0"};
 // char author[20][31] = {"\0"};
@@ -114,7 +120,7 @@ int main() {
   writeFile(books[1]);
   writeFile(books[2]);
   writeFile(books[3]);
-  writeFile(books[4]);
+  cout << writeFile(books[4]);
 
   int userInput;
   bool exitMenu = false;

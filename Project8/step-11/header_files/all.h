@@ -2,8 +2,8 @@
 #define MAIN_HEADER
 
 #include <cstring>
+#include <fstream>
 #include <string>
-
 
 using namespace std;
 
@@ -83,12 +83,6 @@ void descendingSort(int *pointer, int *p[]);
 // overload for string
 void descendingSort(string *pointer, string *p[]);
 
-// file.cpp
-bool writeFile(BookData book);
-bool writeFile(BookData book, int index);
-bool readFile(BookData book);
-bool readFile(Bookdata book, int index);
-
 // print
 // Global Variables
 // bookinfo.cpp
@@ -160,7 +154,7 @@ public:
   void setDateAdded(string p) { strcpy(this->dateAdded, (p).c_str()); }
 
   void setQty(int val) { this->qtyOnHand = val; }
-  void setIndex(int val) {this->index = val; }
+  void setIndex(int val) { this->index = val; }
 
   void setWholesale(double val) { this->wholesale = val; }
   void setRetail(double val) { this->retail = val; }
@@ -174,7 +168,7 @@ public:
   string getDateAdded() { return this->dateAdded; }
 
   int getQty() { return this->qtyOnHand; }
-  int getIndex() {return this->index; }
+  int getIndex() { return this->index; }
 
   double getWholesale() { return this->wholesale; }
   double getRetail() { return this->retail; }
@@ -184,6 +178,13 @@ extern bookData books[20];
 
 extern bookData book;
 
-fstream inFile("../inventory.txt", ios::in | ios::binary);
-fstream outFile("../inventory.txt", ios::ate | ios::binary);
+extern fstream inFile;
+extern fstream outFile;
+extern fstream file;
+
+// file.cpp
+int writeFile(bookData book);
+int writeFile(bookData book, int index);
+int readFile(bookData book);
+int readFile(bookData book, int index);
 #endif
