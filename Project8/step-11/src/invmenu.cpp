@@ -87,7 +87,7 @@ void addBook() {
   char tempInput[51];
   cout << "You selected Add Book." << endl;
 
-  for (int i = 0; i < 20; i++) {
+  for (int i = 0; i < totalIndex(); i++) {
     book = readFile(book, i);
 
     if (book.getTitle() == "\0") {
@@ -135,7 +135,47 @@ void addBook() {
       return;
     }
   }
-  cout << "Inventory full..." << endl;
+  cout << "Book title: ";
+  cin.getline(tempInput, 51);
+  strUpper((tempInput));
+  book.setTitle(tempInput);
+
+  cout << "ISBN #: ";
+  cin.getline(tempInput, 14);
+  strUpper((tempInput));
+  book.setISBN(tempInput);
+
+  cout << "Author's name: ";
+  cin.getline(tempInput, 31);
+  strUpper((tempInput));
+  book.setAuthor(tempInput);
+
+  cout << "Publisher's name: ";
+  cin.getline(tempInput, 31);
+  strUpper((tempInput));
+  book.setPub(tempInput);
+
+  cout << "Date: ";
+  cin.getline(tempInput, 11);
+  book.setDateAdded(tempInput);
+
+  cout << "Quantity of book: ";
+  cin >> intInput;
+  cin.ignore();
+  book.setQty(intInput);
+
+  cout << "Wholesale cost: ";
+  cin >> doubleInput;
+  cin.ignore();
+  book.setWholesale(doubleInput);
+
+  cout << "Retail cost: ";
+  cin >> doubleInput;
+  cin.ignore();
+  book.setRetail(doubleInput);
+
+  writeFile(book);
+  // cout << "Inventory full..." << endl;
 }
 
 void editBook() {
@@ -180,9 +220,9 @@ void deleteBook() {
     cin.ignore();
 
     if (tempInput == "y") {
-      book =  readFile(book, index);
+      // book = readFile(book, index);
       book.removeBook();
-      writeFile(book, book.getIndex());
+      writeFile(book, index);
       cout << "Book deleted..." << endl;
     }
   }
@@ -198,13 +238,13 @@ void strUpper(char *input) {
 // return index of book given userBook
 // if not found, return -1
 int bookIndex(string userBook) {
-  int matchingBooks[maxElm] = {0};
+  int matchingBooks[totalIndex()] = {0};
   int matchingCount = 0;
   int userChoice = 0;
   char userBookChar[51];
   strcpy(userBookChar, userBook.c_str());
   strUpper(userBookChar);
-  for (int i = 0; i < 20; i++) {
+  for (int i = 0; i < totalIndex(); i++) {
     book = readFile(book, i);
     if (strstr(book.getTitle().c_str(), userBookChar)) {
       matchingBooks[matchingCount] = i;
@@ -257,6 +297,7 @@ void editBookMenu(int bookIndex) {
     cout << "Which one to edit? (1-9): ";
     cin >> choice;
     cin.ignore();
+    book = readFile(book, bookIndex);
     switch (choice) {
     case 1:
       if (confirm("ISBN? (y/N): ")) {
@@ -272,6 +313,9 @@ void editBookMenu(int bookIndex) {
         cin.getline(tempInput, 51);
         strUpper((tempInput));
         book.setTitle(tempInput);
+        cout << book.getTitle();
+        writeFile(book, bookIndex);
+        cout << bookIndex;
       }
       break;
     case 3:
@@ -327,7 +371,6 @@ void editBookMenu(int bookIndex) {
     default:
       cout << "Invalid choice. (1-9)" << endl;
     }
-    writeFile(book, bookIndex);
   }
 }
 

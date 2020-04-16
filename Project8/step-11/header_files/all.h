@@ -174,17 +174,16 @@ public:
   double getRetail() { return this->retail; }
 };
 
-extern bookData books[20];
-
 extern bookData book;
 
-extern fstream inFile;
-extern fstream outFile;
 extern fstream file;
+// extern fstream outFile;
+// extern fstream file;
 
 // file.cpp
 int writeFile(bookData book);
 int writeFile(bookData book, int index);
 bookData readFile(bookData book);
 bookData readFile(bookData book, int index);
+int totalIndex();
 #endif
