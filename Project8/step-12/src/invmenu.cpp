@@ -314,7 +314,6 @@ void editBookMenu(int bookIndex) {
         strUpper((tempInput));
         book.setTitle(tempInput);
         cout << book.getTitle();
-        writeFile(book, bookIndex);
         cout << bookIndex;
       }
       break;
@@ -371,6 +370,7 @@ void editBookMenu(int bookIndex) {
     default:
       cout << "Invalid choice. (1-9)" << endl;
     }
+    writeFile(book, bookIndex);
   }
 }
 
