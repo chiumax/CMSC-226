@@ -19,19 +19,23 @@ int writeFile(bookData book, int index) {
   return index;
 }
 
-int readFile(bookData book) {
+bookData readFile(bookData book) {
   inFile.seekg(0L, ios::beg);
   if (!inFile.eof()) {
     inFile.read(reinterpret_cast<char *>(&book), sizeof(book));
-    return inFile.tellg();
+    book.setIndex(inFile.tellg()/sizeof(book))
+    return book;
   }
-  return -1;
+  book.setIndex(-1);
+  return book;
 }
-int readFile(bookData book, int index) {
+bookData readFile(bookData book, int index) {
   inFile.seekg(sizeof(book) * index, ios::beg);
   if (!inFile.eof()) {
     inFile.read(reinterpret_cast<char *>(&book), sizeof(book));
-    book return index;
+    book.setIndex(index);
+    return book;
   }
-  return -1;
+  book.setIndex(-1);
+  return book;
 }

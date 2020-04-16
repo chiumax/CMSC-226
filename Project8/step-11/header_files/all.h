@@ -185,6 +185,6 @@ extern fstream file;
 // file.cpp
 int writeFile(bookData book);
 int writeFile(bookData book, int index);
-int readFile(bookData book);
-int readFile(bookData book, int index);
+bookData readFile(bookData book);
+bookData readFile(bookData book, int index);
 #endif

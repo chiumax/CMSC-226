@@ -53,27 +53,29 @@ void cashier() {
       }
       continue;
     }
+    book = readFile(book,ind);
 
-    cout << "Book title: " << books[ind].getTitle() << endl
-         << "Retail Price: " << books[ind].getRetail() << endl
-         << "Quantity: " << books[ind].getQty() << endl;
+    cout << "Book title: " << book.getTitle() << endl
+         << "Retail Price: " << book.getRetail() << endl
+         << "Quantity: " << book.getQty() << endl;
 
     cout << "How many books would you like to purchase? : ";
     cin >> bookQuantity;
     cin.ignore();
 
-    if (books[ind].getQty() - bookQuantity < 0) {
+    if (book.getQty() - bookQuantity < 0) {
       cout << "Not enough book in stock!" << endl
            << "Quitting...." << endl
            << endl;
       // restock shelf with stuff from cart
 
       for (int i = 0; i < maxElm; i++) {
-        books[i].setQty(books[i].getQty() + shoppingCart[i]);
+        book.setQty(book.getQty() + shoppingCart[i]);
       }
       return;
     }
-    books[ind].setQty(books[ind].getQty() - bookQuantity);
+    book.setQty(book.getQty() - bookQuantity);
+    writeFile(book, ind);
     shoppingCart[ind] += bookQuantity;
 
     cout << "Would you like to purchase another book? (y/N) ";
@@ -98,14 +100,15 @@ void cashier() {
     for (int i = 0; i < maxElm; i++) {
       // Content
       if (shoppingCart[i] != 0) {
-        subtotal += shoppingCart[i] * books[i].getRetail();
+        book = readFile(book, i);
+        subtotal += shoppingCart[i] * book.getRetail();
         salesTax += subtotal * TAX_RATE;
         total += salesTax + subtotal;
 
         cout << setw(6) << fixed << shoppingCart[i] << setw(20)
-             << books[i].getISBN() << setw(20) << books[i].getTitle()
-             << setw(15) << setprecision(2) << books[i].getRetail() << setw(15)
-             << shoppingCart[i] * books[i].getRetail() << endl;
+             << book.getISBN() << setw(20) << book.getTitle()
+             << setw(15) << setprecision(2) << book.getRetail() << setw(15)
+             << shoppingCart[i] * book.getRetail() << endl;
       }
     }
     //
@@ -135,7 +138,8 @@ void cashier() {
 
 int findISBN(string ISBN) {
   for (int i = 0; i < maxElm; i++) {
-    if (ISBN == books[i].getISBN()) {
+    book = readFile(book, i);
+    if (ISBN == book.getISBN()) {
       return i;
     }
   }

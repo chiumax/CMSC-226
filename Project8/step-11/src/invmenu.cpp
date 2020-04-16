@@ -88,7 +88,7 @@ void addBook() {
   cout << "You selected Add Book." << endl;
 
   for (int i = 0; i < 20; i++) {
-    readFile(book, i);
+    book = readFile(book, i);
 
     if (book.getTitle() == "\0") {
       cout << "Book title: ";
@@ -180,8 +180,9 @@ void deleteBook() {
     cin.ignore();
 
     if (tempInput == "y") {
-      readFile(book, index);
+      book =  readFile(book, index);
       book.removeBook();
+      writeFile(book, book.getIndex());
       cout << "Book deleted..." << endl;
     }
   }
@@ -204,9 +205,7 @@ int bookIndex(string userBook) {
   strcpy(userBookChar, userBook.c_str());
   strUpper(userBookChar);
   for (int i = 0; i < 20; i++) {
-    readFile(book, i);
-    cout << book.getTitle();
-    cout << "look";
+    book = readFile(book, i);
     if (strstr(book.getTitle().c_str(), userBookChar)) {
       matchingBooks[matchingCount] = i;
       matchingCount++;
@@ -344,7 +343,7 @@ bool confirm(string message) {
 
 // given book index print out bookInfo()
 void displayBook(int bookIndex) {
-  readFile(book, bookIndex);
+  book = readFile(book, bookIndex);
   bookInfo(book.getISBN(), book.getTitle(), book.getAuthor(), book.getPub(),
            book.getDateAdded(), book.getQty(), book.getWholesale(),
            book.getRetail());
