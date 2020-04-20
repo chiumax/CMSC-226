@@ -313,7 +313,7 @@ void editBookMenu(int bookIndex) {
         cin.getline(tempInput, 51);
         strUpper((tempInput));
         book.setTitle(tempInput);
-        cout << book.getTitle();
+        cout << book.getTitle(); 
         cout << bookIndex;
       }
       break;
