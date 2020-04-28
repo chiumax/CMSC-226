@@ -3,6 +3,7 @@
 
 #include <cstring>
 #include <fstream>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -77,16 +78,10 @@ void repAge();
 void coutTime();
 
 // descending sort
-void descendingSort(double *pointer, double *p[]);
-// overload for int
-void descendingSort(int *pointer, int *p[]);
-// overload for string
-void descendingSort(string *pointer, string *p[]);
+void descendingSort(string type);
 
 // defining variables
 
-// number of elements
-extern int maxElm;
 
 class BookData {
 private:
@@ -152,29 +147,28 @@ public:
 
   bool bookMatch(string bookTitle) {
     char bookTitleChar[51];
-    strcpy(bookTitleChar, userBook.c_str());
+    strcpy(bookTitleChar, bookTitle.c_str());
     strUpper(bookTitleChar);
     return strstr(this->bookTitle, bookTitleChar);
   }
 };
 
+extern BookData book;
 
-class BookFile{
-  private:
-    fstream file;
-  public:
+class BookFile {
+private:
+  fstream file;
+
+public:
   // constructors
-    BookFile() {
+  BookFile() {}
 
-    }
-    
-    BookFile(string filePath) {
-        fstream tempFile;
-        tempFile(filePath, ios::in | ios::binary | ios::out);
-        this->file =  tempFile;
-    }
+  BookFile(string filePath) {
 
-  int writeFile(bookData book) {
+    this->file.open(filePath.c_str(), ios::in | ios::binary | ios::out);
+  }
+
+  int writeFile(BookData book) {
     this->file.clear();
     this->file.seekp(0L, ios::end);
     this->file.write(reinterpret_cast<char *>(&book), sizeof(book));
@@ -182,7 +176,7 @@ class BookFile{
     return this->file.tellp();
   }
 
-  int writeFile(bookData book, int index) {
+  int writeFile(BookData book, int index) {
     this->file.clear();
     this->file.seekp(sizeof(book) * index, ios::beg);
     this->file.write(reinterpret_cast<char *>(&book), sizeof(book));
@@ -191,7 +185,7 @@ class BookFile{
     return index;
   }
 
-  bookData readFile(bookData book) {
+  BookData readFile(BookData book) {
     this->file.clear();
     this->file.seekg(0L, ios::beg);
     if (!this->file.eof()) {
@@ -200,7 +194,7 @@ class BookFile{
     }
     return book;
   }
-  bookData readFile(bookData book, int index) {
+  BookData readFile(BookData book, int index) {
     this->file.clear();
     this->file.seekg(sizeof(book) * index, ios::beg);
     if (!this->file.eof()) {
@@ -215,10 +209,8 @@ class BookFile{
     this->file.seekp(0L, ios::end);
     return this->file.tellp() / sizeof(book);
   }
+};
 
-}
-
-extern BookData book;
 extern BookFile file;
 
 #endif

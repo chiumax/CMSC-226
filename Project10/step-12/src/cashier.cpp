@@ -10,6 +10,7 @@ Ask for input and outputs a "receipt"
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "../header_files/all.h"
 
@@ -53,7 +54,7 @@ void cashier() {
       }
       continue;
     }
-    book = file.readFile(book,ind);
+    book = file.readFile(book, ind);
 
     cout << "Book title: " << book.getTitle() << endl
          << "Retail Price: " << book.getRetail() << endl
@@ -63,14 +64,17 @@ void cashier() {
     cin >> bookQuantity;
     cin.ignore();
 
-    if (book.getQty() - bookQuantity < 0) {
-      cout << "Not enough book in stock!" << endl
+    if (book.getQty() - bookQuantity < 0 || bookQuantity < 0) {
+      cout << "Not enough book in stock or invalid input!" << endl
            << "Quitting...." << endl
            << endl;
       // restock shelf with stuff from cart
 
-      for (int i = 0; i < maxElm; i++) {
+      for (int i = 0; i < file.totalIndex(); i++) {
+        book = file.readFile(book, i);
+        cout << shoppingCart[i];
         book.setQty(book.getQty() + shoppingCart[i]);
+        file.writeFile(book, i);
       }
       return;
     }
@@ -92,12 +96,12 @@ void cashier() {
     cout << endl;
     cout << "Serendipity Book Sellers" << endl
          << "Date: " << endl
-         << setw(6) << "Qty" << setw(20) << "ISBN" << setw(20) << "Title"
+         << setw(6) << "Qty" << setw(51) << "ISBN" << setw(51) << "Title"
          << setw(15) << "Price" << setw(15) << "Total" << endl
-         << setfill('_') << setw(100) << "" << endl
+         << setfill('_') << setw(157) << "" << endl
          << setfill(' ');
 
-    for (int i = 0; i < maxElm; i++) {
+    for (int i = 0; i < file.totalIndex(); i++) {
       // Content
       if (shoppingCart[i] != 0) {
         book = file.readFile(book, i);
@@ -105,14 +109,15 @@ void cashier() {
         salesTax += subtotal * TAX_RATE;
         total += salesTax + subtotal;
 
-        cout << setw(6) << fixed << shoppingCart[i] << setw(20)
-             << book.getISBN() << setw(20) << book.getTitle()
-             << setw(15) << setprecision(2) << book.getRetail() << setw(15)
+        cout << setw(6) << fixed << shoppingCart[i] << setw(51)
+             << book.getISBN() << setw(51) << book.getTitle() << setw(15)
+             << setprecision(2) << book.getRetail() << setw(15)
              << shoppingCart[i] * book.getRetail() << endl;
       }
     }
     //
     // footer
+    cout << endl;
     cout << setw(10) << "" << setw(20) << left << "Subtotal" << setw(50)
          << right << subtotal << endl
          << setw(10) << "" << setw(20) << left << "Tax" << setw(50) << right
@@ -129,7 +134,7 @@ void cashier() {
     subtotal = 0;
     salesTax = 0;
     total = 0;
-    for (int i = 0; i < maxElm; i++) {
+    for (int i = 0; i < file.totalIndex(); i++) {
       shoppingCart[i] = 0;
     }
     cout << endl;
@@ -137,7 +142,7 @@ void cashier() {
 }
 
 int findISBN(string ISBN) {
-  for (int i = 0; i < maxElm; i++) {
+  for (int i = 0; i < file.totalIndex(); i++) {
     book = file.readFile(book, i);
     if (ISBN == book.getISBN()) {
       return i;

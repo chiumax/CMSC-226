@@ -78,10 +78,10 @@ void repListing() {
        << "Date: ";
   coutTime();
   cout << endl;
-
   int count = 1;
+
   for (int i = 0; i < file.totalIndex(); i++) {
-    book = file.readFile(book,index);
+    book = file.readFile(book, i);
     if (book.getTitle() != "\0") {
       cout << endl << endl << "Book #" << count << endl;
       cout << "=====" << endl
@@ -108,8 +108,8 @@ void repWholesale() {
        << "Date: ";
   coutTime();
   cout << endl;
-
   int count = 1;
+
   double total = 0;
   for (int i = 0; i < file.totalIndex(); i++) {
     book = file.readFile(book, i);
@@ -136,8 +136,8 @@ void repRetail() {
        << "Date: ";
   coutTime();
   cout << endl;
-
   int count = 1;
+
   double total = 0;
   for (int i = 0; i < file.totalIndex(); i++) {
     book = file.readFile(book, i);
@@ -164,6 +164,7 @@ void repQty() {
        << "Date: ";
   coutTime();
   cout << endl;
+  int count = 1;
 
   descendingSort("quantity");
 
@@ -189,6 +190,7 @@ void repCost() {
        << "Date: ";
   coutTime();
   cout << endl;
+  int count = 1;
 
   descendingSort("wholesale");
 
@@ -215,6 +217,7 @@ void repAge() {
        << "Date: ";
   coutTime();
   cout << endl;
+  int count = 1;
 
   descendingSort("date");
 
@@ -248,31 +251,29 @@ void coutTime() {
   cout << dt;
 }
 
-
 void descendingSort(string type) {
   int max = 0;
   BookData tempBook;
   bool condition;
-   // using selection sort
+  // using selection sort
   for (int i = 0; i < file.totalIndex(); i++) {
     max = i;
     for (int j = i; j < file.totalIndex(); j++) {
       tempBook = file.readFile(tempBook, j);
       book = file.readFile(book, max);
 
-      if(type == "wholesale"){
+      if (type == "wholesale") {
         condition = book.getWholesale() < tempBook.getWholesale();
       }
-      if(type == "quantity"){
+      if (type == "quantity") {
         condition = book.getQty() < tempBook.getQty();
       }
-      if(type == "date"){
+      if (type == "date") {
         string tempDate = tempBook.getDateAdded();
         string date = book.getDateAdded();
-        tempDate = tempDate.substr(6, 4) + tempDate.substr(0, 2) + tempDate.substr(3, 2);;
-        date = date.substr(6, 4) + date.substr(0, 2) + date.substr(3, 2);;
-
-        val[i] = date.substr(6, 4) + date.substr(0, 2) + date.substr(3, 2);
+        tempDate = tempDate.substr(6, 4) + tempDate.substr(0, 2) +
+                   tempDate.substr(3, 2);
+        date = date.substr(6, 4) + date.substr(0, 2) + date.substr(3, 2);
         condition = date < tempDate;
       }
 
@@ -280,8 +281,8 @@ void descendingSort(string type) {
         max = j;
       }
     }
-    tempBook = file.readFile(book,i);
-    book = file.readFile(book,max);
+    tempBook = file.readFile(book, i);
+    book = file.readFile(book, max);
     file.writeFile(book, i);
     file.writeFile(tempBook, max);
   }

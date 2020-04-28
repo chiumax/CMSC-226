@@ -9,6 +9,7 @@ Inventory Module
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "../header_files/all.h"
 
