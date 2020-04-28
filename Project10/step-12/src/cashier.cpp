@@ -21,7 +21,7 @@ void cashier() {
   string userInput;
 
   int ind;
-  int shoppingCart[maxElm] = {0};
+  vector<int> shoppingCart(file.totalIndex(), 0);
 
   const double TAX_RATE = 0.06;
   double salesTax = 0;
@@ -53,7 +53,7 @@ void cashier() {
       }
       continue;
     }
-    book = readFile(book,ind);
+    book = file.readFile(book,ind);
 
     cout << "Book title: " << book.getTitle() << endl
          << "Retail Price: " << book.getRetail() << endl
@@ -75,7 +75,7 @@ void cashier() {
       return;
     }
     book.setQty(book.getQty() - bookQuantity);
-    writeFile(book, ind);
+    file.writeFile(book, ind);
     shoppingCart[ind] += bookQuantity;
 
     cout << "Would you like to purchase another book? (y/N) ";
@@ -100,7 +100,7 @@ void cashier() {
     for (int i = 0; i < maxElm; i++) {
       // Content
       if (shoppingCart[i] != 0) {
-        book = readFile(book, i);
+        book = file.readFile(book, i);
         subtotal += shoppingCart[i] * book.getRetail();
         salesTax += subtotal * TAX_RATE;
         total += salesTax + subtotal;
@@ -138,7 +138,7 @@ void cashier() {
 
 int findISBN(string ISBN) {
   for (int i = 0; i < maxElm; i++) {
-    book = readFile(book, i);
+    book = file.readFile(book, i);
     if (ISBN == book.getISBN()) {
       return i;
     }

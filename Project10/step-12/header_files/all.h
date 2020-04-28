@@ -83,34 +83,12 @@ void descendingSort(int *pointer, int *p[]);
 // overload for string
 void descendingSort(string *pointer, string *p[]);
 
-// print
-// Global Variables
-// bookinfo.cpp
-/*
- Parallel arrays
- arr[0] 0 represents the obj.
-
- no need to use extern i believe
-*/
-/////////////////////////////////////////////////
-// extern char bookTitle[20][51];
-// extern char isbn[20][14];
-// extern char author[20][31];
-// extern char publisher[20][31];
-// extern char dateAdded[20][11];
-
-// extern int qtyOnHand[20];
-
-// extern double wholesale[20];
-// extern double retail[20];
-/////////////////////////////////////////////////
-
 // defining variables
 
 // number of elements
 extern int maxElm;
 
-class bookData {
+class BookData {
 private:
   char bookTitle[51];
   char isbn[14];
@@ -119,14 +97,13 @@ private:
   char dateAdded[11];
 
   int qtyOnHand;
-  int index;
 
   double wholesale;
   double retail;
 
 public:
   // constructors
-  bookData() {
+  BookData() {
     strcpy(this->bookTitle, "\0");
     strcpy(this->isbn, "\0");
     strcpy(this->author, "\0");
@@ -138,7 +115,7 @@ public:
     retail = 0;
   }
 
-  bookData(char isbn[], char title[], char author[], char publisher[],
+  BookData(char isbn[], char title[], char author[], char publisher[],
            char date[], int qty, double wholesale, double retail) {}
 
   bool isEmpty() { return (bookTitle[0] == '\0'); }
@@ -154,7 +131,6 @@ public:
   void setDateAdded(string p) { strcpy(this->dateAdded, (p).c_str()); }
 
   void setQty(int val) { this->qtyOnHand = val; }
-  void setIndex(int val) { this->index = val; }
 
   void setWholesale(double val) { this->wholesale = val; }
   void setRetail(double val) { this->retail = val; }
@@ -168,22 +144,81 @@ public:
   string getDateAdded() { return this->dateAdded; }
 
   int getQty() { return this->qtyOnHand; }
-  int getIndex() { return this->index; }
 
   double getWholesale() { return this->wholesale; }
   double getRetail() { return this->retail; }
+
+  // class functions
+
+  bool bookMatch(string bookTitle) {
+    char bookTitleChar[51];
+    strcpy(bookTitleChar, userBook.c_str());
+    strUpper(bookTitleChar);
+    return strstr(this->bookTitle, bookTitleChar);
+  }
 };
 
-extern bookData book;
 
-extern fstream file;
-// extern fstream outFile;
-// extern fstream file;
+class BookFile{
+  private:
+    fstream file;
+  public:
+  // constructors
+    BookFile() {
 
-// file.cpp
-int writeFile(bookData book);
-int writeFile(bookData book, int index);
-bookData readFile(bookData book);
-bookData readFile(bookData book, int index);
-int totalIndex();
+    }
+    
+    BookFile(string filePath) {
+        fstream tempFile;
+        tempFile(filePath, ios::in | ios::binary | ios::out);
+        this->file =  tempFile;
+    }
+
+  int writeFile(bookData book) {
+    this->file.clear();
+    this->file.seekp(0L, ios::end);
+    this->file.write(reinterpret_cast<char *>(&book), sizeof(book));
+    this->file.flush();
+    return this->file.tellp();
+  }
+
+  int writeFile(bookData book, int index) {
+    this->file.clear();
+    this->file.seekp(sizeof(book) * index, ios::beg);
+    this->file.write(reinterpret_cast<char *>(&book), sizeof(book));
+    this->file.flush();
+
+    return index;
+  }
+
+  bookData readFile(bookData book) {
+    this->file.clear();
+    this->file.seekg(0L, ios::beg);
+    if (!this->file.eof()) {
+      this->file.read(reinterpret_cast<char *>(&book), sizeof(book));
+      return book;
+    }
+    return book;
+  }
+  bookData readFile(bookData book, int index) {
+    this->file.clear();
+    this->file.seekg(sizeof(book) * index, ios::beg);
+    if (!this->file.eof()) {
+      this->file.read(reinterpret_cast<char *>(&book), sizeof(book));
+      return book;
+    }
+    cout << "error";
+    return book;
+  }
+
+  int totalIndex() {
+    this->file.seekp(0L, ios::end);
+    return this->file.tellp() / sizeof(book);
+  }
+
+}
+
+extern BookData book;
+extern BookFile file;
+
 #endif

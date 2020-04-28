@@ -1,7 +1,7 @@
 /*
 reports.cpp
 CMSC 226, CRN 35481, Dr. Kuijt
-maxElm C.
+file.totalIndex() C.
 
 Reports Module
 */
@@ -14,243 +14,227 @@ Reports Module
 
 using namespace std;
 
-void reports() {}
+void reports() {
+  int userInput;
+  bool exitMenu = false;
 
-// void reports() {
-//   int userInput;
-//   bool exitMenu = false;
+  cout << setfill('=');
 
-//   cout << setfill('=');
+  // Menu exits on user input "7"
+  while (exitMenu == false) {
+    cout << endl;
+    cout << "Serendipity Booksellers" << endl
+         << "Reports" << endl
+         << "1. Inventory Listing" << endl
+         << "2. Inventory Wholesale Value" << endl
+         << "3. Inventory Retail Value" << endl
+         << "4. Listing by Quantity" << endl
+         << "5. Listing by Cost" << endl
+         << "6. Listing by Age" << endl
+         << "7. Return to Main Menu" << endl
+         << endl
+         << "Enter Your Choice: ";
 
-//   // Menu exits on user input "7"
-//   while (exitMenu == false) {
-//     cout << endl;
-//     cout << "Serendipity Booksellers" << endl
-//          << "Reports" << endl
-//          << "1. Inventory Listing" << endl
-//          << "2. Inventory Wholesale Value" << endl
-//          << "3. Inventory Retail Value" << endl
-//          << "4. Listing by Quantity" << endl
-//          << "5. Listing by Cost" << endl
-//          << "6. Listing by Age" << endl
-//          << "7. Return to Main Menu" << endl
-//          << endl
-//          << "Enter Your Choice: ";
+    cin >> userInput;
+    cin.ignore();
 
-//     cin >> userInput;
-//     cin.ignore();
+    switch (userInput) {
+    case 1:
+      repListing();
+      break;
+    case 2:
+      repWholesale();
+      break;
+    case 3:
+      repRetail();
+      break;
+    case 4:
+      repQty();
+      break;
+    case 5:
+      repCost();
+      break;
+    case 6:
+      repAge();
+      break;
+    case 7:
+      // EXIT HERE
+      cout << "You selected item 7" << endl;
+      exitMenu = true;
+      break;
+    default:
+      cout << "Please enter a number in the range 1-7" << endl;
+      break;
+    }
+  }
+  cout << "Menu exited" << endl;
+}
 
-//     switch (userInput) {
-//     case 1:
-//       repListing();
-//       break;
-//     case 2:
-//       repWholesale();
-//       break;
-//     case 3:
-//       repRetail();
-//       break;
-//     case 4:
-//       repQty();
-//       break;
-//     case 5:
-//       repCost();
-//       break;
-//     case 6:
-//       repAge();
-//       break;
-//     case 7:
-//       // EXIT HERE
-//       cout << "You selected item 7" << endl;
-//       exitMenu = true;
-//       break;
-//     default:
-//       cout << "Please enter a number in the range 1-7" << endl;
-//       break;
-//     }
-//   }
-//   cout << "Menu exited" << endl;
-// }
+void repListing() {
+  cout << "You selected Inventory Listing." << endl << endl;
 
-// void repListing() {
-//   cout << "You selected Inventory Listing." << endl << endl;
+  cout << setw(10) << " "
+       << "Entire Inventory " << setw(10) << " " << endl
+       << "Date: ";
+  coutTime();
+  cout << endl;
 
-//   cout << setw(10) << " "
-//        << "Entire Inventory " << setw(10) << " " << endl
-//        << "Date: ";
-//   coutTime();
-//   cout << endl;
+  int count = 1;
+  for (int i = 0; i < file.totalIndex(); i++) {
+    book = file.readFile(book,index);
+    if (book.getTitle() != "\0") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << book.getTitle() << endl
+           << "ISBN #: " << book.getISBN() << endl
+           << "Author: " << book.getAuthor() << endl
+           << "Publisher: " << book.getPub() << endl
+           << "Date Added (MM-DD-YYYY): " << book.getDateAdded() << endl
+           << "Quantity on Hand: " << book.getQty() << endl
+           << "Wholesale Cost: " << book.getWholesale() << endl
+           << "Retail Price: " << book.getRetail() << endl
+           << "=====" << endl;
+      count++;
+    }
+  }
+  // TODO: Modify from 20 to a dynamic file.totalIndex() limit
+}
 
-//   int count = 1;
-//   for (int i = 0; i < maxElm; i++) {
-//     if (books[i].getTitle() != "\0") {
-//       cout << endl << endl << "Book #" << count << endl;
-//       cout << "=====" << endl
-//            << "Title: " << books[i].getTitle() << endl
-//            << "ISBN #: " << books[i].getISBN() << endl
-//            << "Author: " << books[i].getAuthor() << endl
-//            << "Publisher: " << books[i].getPub() << endl
-//            << "Date Added (MM-DD-YYYY): " << books[i].getDateAdded() << endl
-//            << "Quantity on Hand: " << books[i].getQty() << endl
-//            << "Wholesale Cost: " << books[i].getWholesale() << endl
-//            << "Retail Price: " << books[i].getRetail() << endl
-//            << "=====" << endl;
-//       count++;
-//     }
-//   }
-//   // TODO: Modify from 20 to a dynamic maxElm limit
-// }
+void repWholesale() {
+  cout << "You selected Inventory Wholesale Value." << endl << endl;
 
-// void repWholesale() {
-//   cout << "You selected Inventory Wholesale Value." << endl << endl;
+  cout << setw(10) << " "
+       << "Entire Inventory Wholesale Prices " << setw(10) << " " << endl
+       << "Date: ";
+  coutTime();
+  cout << endl;
 
-//   cout << setw(10) << " "
-//        << "Entire Inventory Wholesale Prices " << setw(10) << " " << endl
-//        << "Date: ";
-//   coutTime();
-//   cout << endl;
+  int count = 1;
+  double total = 0;
+  for (int i = 0; i < file.totalIndex(); i++) {
+    book = file.readFile(book, i);
+    if (book.getTitle() != "\0") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << book.getTitle() << endl
+           << "ISBN #: " << book.getISBN() << endl
+           << "Quantity on Hand: " << book.getQty() << endl
+           << "Wholesale Cost: " << book.getWholesale() << endl
+           << "=====" << endl;
+      count++;
+      total += book.getWholesale() * book.getQty();
+    }
+  }
+  cout << "Total wholesale value of inventory: " << total << endl;
+}
 
-//   int count = 1;
-//   double total = 0;
-//   for (int i = 0; i < maxElm; i++) {
-//     if (books[i].getTitle() != "\0") {
-//       cout << endl << endl << "Book #" << count << endl;
-//       cout << "=====" << endl
-//            << "Title: " << books[i].getTitle() << endl
-//            << "ISBN #: " << books[i].getISBN() << endl
-//            << "Quantity on Hand: " << books[i].getQty() << endl
-//            << "Wholesale Cost: " << books[i].getWholesale() << endl
-//            << "=====" << endl;
-//       count++;
-//       total += books[i].getWholesale() * books[i].getQty();
-//     }
-//   }
-//   cout << "Total wholesale value of inventory: " << total << endl;
-// }
+void repRetail() {
+  cout << "You selected Inventory Retail Value." << endl << endl;
 
-// void repRetail() {
-//   cout << "You selected Inventory Retail Value." << endl << endl;
+  cout << setw(10) << " "
+       << "Entire Inventory Retail Prices " << setw(10) << " " << endl
+       << "Date: ";
+  coutTime();
+  cout << endl;
 
-//   cout << setw(10) << " "
-//        << "Entire Inventory Retail Prices " << setw(10) << " " << endl
-//        << "Date: ";
-//   coutTime();
-//   cout << endl;
+  int count = 1;
+  double total = 0;
+  for (int i = 0; i < file.totalIndex(); i++) {
+    book = file.readFile(book, i);
+    if (book.getTitle() != "\0") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << book.getTitle() << endl
+           << "ISBN #: " << book.getISBN() << endl
+           << "Quantity on Hand: " << book.getQty() << endl
+           << "Retail Price: " << book.getRetail() << endl
+           << "=====" << endl;
+      count++;
+      total += book.getRetail() * book.getQty();
+    }
+  }
+  cout << "Total retail value of inventory: " << total << endl;
+}
+/// change to reflect class
+void repQty() {
+  cout << "You selected Listing By Quantity" << endl << endl;
 
-//   int count = 1;
-//   double total = 0;
-//   for (int i = 0; i < maxElm; i++) {
-//     if (books[i].getTitle() != "\0") {
-//       cout << endl << endl << "Book #" << count << endl;
-//       cout << "=====" << endl
-//            << "Title: " << books[i].getTitle() << endl
-//            << "ISBN #: " << books[i].getISBN() << endl
-//            << "Quantity on Hand: " << books[i].getQty() << endl
-//            << "Retail Price: " << books[i].getRetail() << endl
-//            << "=====" << endl;
-//       count++;
-//       total += books[i].getRetail() * books[i].getQty();
-//     }
-//   }
-//   cout << "Total retail value of inventory: " << total << endl;
-// }
+  cout << setw(10) << " "
+       << "Entire Inventory Book Quantities " << setw(10) << " " << endl
+       << "Date: ";
+  coutTime();
+  cout << endl;
 
-// void repQty() {
-//   cout << "You selected Listing By Quantity" << endl << endl;
+  descendingSort("quantity");
 
-//   cout << setw(10) << " "
-//        << "Entire Inventory Book Quantities " << setw(10) << " " << endl
-//        << "Date: ";
-//   coutTime();
-//   cout << endl;
+  for (int i = 0; i < file.totalIndex(); i++) {
+    book = file.readFile(book, i);
+    if (book.getTitle() != "\0") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << book.getTitle() << endl
+           << "ISBN #: " << book.getISBN() << endl
+           << "Quantity on Hand: " << book.getQty() << endl
+           << "=====" << endl;
+      count++;
+    }
+  }
+}
 
-//   int *p[maxElm];
-//   descendingSort(&qtyOnHand[0], p);
-//   int count = 1;
-//   for (int i = 0; i < maxElm; i++) {
-//     int ind = p[i] - &qtyOnHand[0];
-//     if (books[ind].getTitle() != "\0") {
-//       cout << endl << endl << "Book #" << count << endl;
-//       cout << "=====" << endl
-//            << "Title: " << books[ind].getTitle() << endl
-//            << "ISBN #: " << books[ind].getISBN() << endl
-//            << "Quantity on Hand: " << books[ind].getQty() << endl
-//            << "=====" << endl;
-//       count++;
-//     }
-//   }
-// }
+void repCost() {
+  cout << "You selected Listing By Cost" << endl << endl;
 
-// void repCost() {
-//   cout << "You selected Listing By Cost" << endl << endl;
+  cout << setw(10) << " "
+       << "Entire Inventory Book Costs " << setw(10) << " " << endl
+       << "Date: ";
+  coutTime();
+  cout << endl;
 
-//   cout << setw(10) << " "
-//        << "Entire Inventory Book Costs " << setw(10) << " " << endl
-//        << "Date: ";
-//   coutTime();
-//   cout << endl;
+  descendingSort("wholesale");
 
-//   double *p[maxElm];
-//   descendingSort(&wholesale[0], p);
-//   int count = 1;
-//   for (int i = 0; i < maxElm; i++) {
-//     int ind = p[i] - &wholesale[0];
-//     if (isbn[ind][0] != '\0') {
-//       cout << endl << endl << "Book #" << count << endl;
-//       cout << "=====" << endl
-//            << "Title: " << bookTitle[ind] << endl
-//            << "ISBN #: " << isbn[ind] << endl
-//            << "Quantity on Hand: " << qtyOnHand[ind] << endl
-//            << "Wholesale Cost: " << wholesale[ind] << endl
-//            << "=====" << endl;
-//       count++;
-//     }
-//   }
-// }
+  for (int i = 0; i < file.totalIndex(); i++) {
+    book = file.readFile(book, i);
+    if (book.getTitle() != "\0") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << book.getTitle() << endl
+           << "ISBN #: " << book.getISBN() << endl
+           << "Quantity on Hand: " << book.getQty() << endl
+           << "Wholesale Cost: " << book.getWholesale() << endl
+           << "=====" << endl;
+      count++;
+    }
+  }
+}
 
-// void repAge() {
-//   cout << "You selected Listing By Age." << endl << endl;
+void repAge() {
+  cout << "You selected Listing By Age." << endl << endl;
 
-//   cout << setw(10) << " "
-//        << "Entire Inventory Date Added " << setw(10) << " " << endl
-//        << "Date: ";
-//   coutTime();
-//   cout << endl;
+  cout << setw(10) << " "
+       << "Entire Inventory Date Added " << setw(10) << " " << endl
+       << "Date: ";
+  coutTime();
+  cout << endl;
 
-//   // preprocess dates
-//   string val[maxElm];
-//   string *p[maxElm];
-//   for (int i = 0; i < maxElm; i++) {
-//     // reordering string for comparison
-//     // YYYY-MM-DD
+  descendingSort("date");
 
-//     // dates are MM-DD-YYYY for substring
-//     // 0,2 3,2 6,4
-//     string date = dateAdded[i];
+  // descendingSortDate(&dateAdded[0], p);
 
-//     if (date != "") {
-//       val[i] = date.substr(6, 4) + date.substr(0, 2) + date.substr(3, 2);
-//     }
-//   }
-//   descendingSort(&val[0], p);
+  for (int i = 0; i < file.totalIndex(); i++) {
+    book = file.readFile(book, i);
 
-//   // descendingSortDate(&dateAdded[0], p);
-//   int count = 1;
-//   for (int i = 0; i < maxElm; i++) {
-//     int ind = p[i] - &val[0];
-
-//     if (isbn[ind][0] != '\0') {
-//       cout << endl << endl << "Book #" << count << endl;
-//       cout << "=====" << endl
-//            << "Title: " << bookTitle[ind] << endl
-//            << "ISBN #: " << isbn[ind] << endl
-//            << "Quantity on Hand: " << qtyOnHand[ind] << endl
-//            << "Date Added (MM-DD-YYYY): " << dateAdded[ind] << endl
-//            << "=====" << endl;
-//       count++;
-//     }
-//   }
-// }
+    if (book.getTitle() != "\0") {
+      cout << endl << endl << "Book #" << count << endl;
+      cout << "=====" << endl
+           << "Title: " << book.getTitle() << endl
+           << "ISBN #: " << book.getISBN() << endl
+           << "Quantity on Hand: " << book.getQty() << endl
+           << "Date Added (MM-DD-YYYY): " << book.getDateAdded() << endl
+           << "=====" << endl;
+      count++;
+    }
+  }
+}
 
 void coutTime() {
   // code from https://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
@@ -264,76 +248,41 @@ void coutTime() {
   cout << dt;
 }
 
-// void descendingSort(double *pointer, double *p[]) {
-//   // uses selection sort to sort items in descending order
-//   // pointer is array of pointers to sort
-//   // double *p[maxElm];
-//   int max = 0;
 
-//   // assign pointers to array
-//   for (int i = 0; i < maxElm; i++) {
-//     p[i] = pointer + i;
-//   }
+void descendingSort(string type) {
+  int max = 0;
+  BookData tempBook;
+  bool condition;
+   // using selection sort
+  for (int i = 0; i < file.totalIndex(); i++) {
+    max = i;
+    for (int j = i; j < file.totalIndex(); j++) {
+      tempBook = file.readFile(tempBook, j);
+      book = file.readFile(book, max);
 
-//   // using selection sort
-//   for (int i = 0; i < maxElm; i++) {
-//     max = i;
-//     for (int j = i; j < maxElm; j++) {
-//       if (*p[max] < *p[j]) {
-//         max = j;
-//       }
-//     }
-//     double *temp = p[max];
-//     p[max] = p[i];
-//     p[i] = temp;
-//   }
-// }
-// void descendingSort(int *pointer, int *p[]) {
-//   // uses selection sort to sort items in descending order
-//   // pointer is array of pointers to sort
-//   // double *p[maxElm];
-//   int max = 0;
+      if(type == "wholesale"){
+        condition = book.getWholesale() < tempBook.getWholesale();
+      }
+      if(type == "quantity"){
+        condition = book.getQty() < tempBook.getQty();
+      }
+      if(type == "date"){
+        string tempDate = tempBook.getDateAdded();
+        string date = book.getDateAdded();
+        tempDate = tempDate.substr(6, 4) + tempDate.substr(0, 2) + tempDate.substr(3, 2);;
+        date = date.substr(6, 4) + date.substr(0, 2) + date.substr(3, 2);;
 
-//   // assign pointers to array
-//   for (int i = 0; i < maxElm; i++) {
-//     p[i] = pointer + i;
-//   }
+        val[i] = date.substr(6, 4) + date.substr(0, 2) + date.substr(3, 2);
+        condition = date < tempDate;
+      }
 
-//   // using selection sort
-//   for (int i = 0; i < maxElm; i++) {
-//     max = i;
-//     for (int j = i; j < maxElm; j++) {
-//       if (*p[max] < *p[j]) {
-//         max = j;
-//       }
-//     }
-//     int *temp = p[max];
-//     p[max] = p[i];
-//     p[i] = temp;
-//   }
-// }
-// void descendingSort(string *pointer, string *p[]) {
-//   // uses selection sort to sort items in descending order
-//   // pointer is array of pointers to sort
-//   // double *p[maxElm];
-//   int max = 0;
-
-//   // assign pointers to array
-//   for (int i = 0; i < maxElm; i++) {
-//     p[i] = pointer + i;
-//   }
-
-//   // using selection sort
-//   for (int i = 0; i < maxElm; i++) {
-//     max = i;
-//     for (int j = i; j < maxElm; j++) {
-//       if ((*p[max]) > (*p[j])) {
-
-//         max = j;
-//       }
-//     }
-//     string *temp = p[max];
-//     p[max] = p[i];
-//     p[i] = temp;
-//   }
-// }
+      if (condition) {
+        max = j;
+      }
+    }
+    tempBook = file.readFile(book,i);
+    book = file.readFile(book,max);
+    file.writeFile(book, i);
+    file.writeFile(tempBook, max);
+  }
+}

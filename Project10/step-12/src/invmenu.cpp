@@ -87,8 +87,8 @@ void addBook() {
   char tempInput[51];
   cout << "You selected Add Book." << endl;
 
-  for (int i = 0; i < totalIndex(); i++) {
-    book = readFile(book, i);
+  for (int i = 0; i < file.totalIndex(); i++) {
+    book = file.readFile(book, i);
 
     if (book.getTitle() == "\0") {
       cout << "Book title: ";
@@ -130,7 +130,7 @@ void addBook() {
       cin.ignore();
       book.setRetail(doubleInput);
 
-      writeFile(book, i);
+      file.writeFile(book, i);
 
       return;
     }
@@ -174,7 +174,7 @@ void addBook() {
   cin.ignore();
   book.setRetail(doubleInput);
 
-  writeFile(book);
+  file.writeFile(book);
   // cout << "Inventory full..." << endl;
 }
 
@@ -220,9 +220,9 @@ void deleteBook() {
     cin.ignore();
 
     if (tempInput == "y") {
-      // book = readFile(book, index);
+      // book = file.readFile(book, index);
       book.removeBook();
-      writeFile(book, index);
+      file.writeFile(book, index);
       cout << "Book deleted..." << endl;
     }
   }
@@ -238,15 +238,12 @@ void strUpper(char *input) {
 // return index of book given userBook
 // if not found, return -1
 int bookIndex(string userBook) {
-  int matchingBooks[totalIndex()] = {0};
+  vector<int> matchingBooks(file.totalIndex(), 0);
   int matchingCount = 0;
   int userChoice = 0;
-  char userBookChar[51];
-  strcpy(userBookChar, userBook.c_str());
-  strUpper(userBookChar);
-  for (int i = 0; i < totalIndex(); i++) {
-    book = readFile(book, i);
-    if (strstr(book.getTitle().c_str(), userBookChar)) {
+  for (int i = 0; i < file.totalIndex(); i++) {
+    book = file.readFile(book, i);
+    if (book.bookMatch(userBook)) {
       matchingBooks[matchingCount] = i;
       matchingCount++;
     }
@@ -297,7 +294,7 @@ void editBookMenu(int bookIndex) {
     cout << "Which one to edit? (1-9): ";
     cin >> choice;
     cin.ignore();
-    book = readFile(book, bookIndex);
+    book = file.readFile(book, bookIndex);
     switch (choice) {
     case 1:
       if (confirm("ISBN? (y/N): ")) {
@@ -370,7 +367,7 @@ void editBookMenu(int bookIndex) {
     default:
       cout << "Invalid choice. (1-9)" << endl;
     }
-    writeFile(book, bookIndex);
+    file.writeFile(book, bookIndex);
   }
 }
 
@@ -386,7 +383,7 @@ bool confirm(string message) {
 
 // given book index print out bookInfo()
 void displayBook(int bookIndex) {
-  book = readFile(book, bookIndex);
+  book = file.readFile(book, bookIndex);
   bookInfo(book.getISBN(), book.getTitle(), book.getAuthor(), book.getPub(),
            book.getDateAdded(), book.getQty(), book.getWholesale(),
            book.getRetail());
